@@ -1,13 +1,17 @@
 import { Fragment, useState } from 'react';
 import styled from 'styled-components';
+import CreatableSelect from './components/CreatableSelect';
 import CreditCardInput from './components/CreditCardInput';
 import Editor from './components/Editor';
 import OTPInput from './components/OTPInput';
 import PassportInput from './components/PassportInput';
 import PasswordInput from './components/PasswordInput';
 import PhoneInput from './components/PhoneInput';
+import SearchInput from './components/SearchInput';
+import Select from './components/Select';
 import TextInput from './components/TextInput';
 import Textarea from './components/Textarea';
+import TimeInput from './components/TimeInput';
 const StyledHeader = styled.div`
    align-items: center;
    display: flex;
@@ -103,6 +107,19 @@ const App = () => {
    const [comment, setComment] = useState('');
    const [OTP, setOTP] = useState('');
    const [info, setInfo] = useState('');
+   const [time, setTime] = useState('');
+   const [select, setSelect] = useState(null);
+   const [search, setSearch] = useState('');
+   const [loading, setLoading] = useState(false);
+   const [creatableOptions, setCreatableOptions] = useState([]);
+   const onChange = value => {
+      const search = typeof value?.label === 'string' ? value.label : value;
+      setSearch(search);
+      setLoading(true);
+      setTimeout(() => {
+         setLoading(false);
+      }, 100);
+   };
    return (
       <Fragment>
          <StyledHeader>
@@ -158,6 +175,75 @@ const App = () => {
                   onChange={setCreditCard}
                   placeholder='Enter credit card number'
                   value={creditCard}
+               />
+            </div>
+            <div className='content'>
+               <label>Time input</label>
+               <TimeInput
+                  onChange={setTime}
+                  placeholder='Enter time'
+                  value={time}
+               />
+            </div>
+            <div className='content'>
+               <label>Creatable select</label>
+               <CreatableSelect
+                  onChange={setCreatableOptions}
+                  value={creatableOptions}
+                  placeholder='Create option'
+               />
+            </div>
+            <div className='content'>
+               <label>Select</label>
+               <Select
+                  onChange={setSelect}
+                  placeholder='Select option'
+                  value={select}
+                  options={[
+                     {
+                        label: 'Option 1',
+                        value: 1,
+                     },
+                     {
+                        label: 'Option 2',
+                        value: 2,
+                     },
+                     {
+                        label: 'Option 3',
+                        value: 3,
+                     },
+                     {
+                        label: 'Option 4',
+                        value: 4,
+                     },
+                  ]}
+               />
+            </div>
+            <div className='content'>
+               <label>Search input</label>
+               <SearchInput
+                  isLoading={loading}
+                  onChange={onChange}
+                  placeholder='Search option'
+                  value={search}
+                  options={[
+                     {
+                        label: 'Option 1',
+                        value: 1,
+                     },
+                     {
+                        label: 'Option 2',
+                        value: 2,
+                     },
+                     {
+                        label: 'Option 3',
+                        value: 3,
+                     },
+                     {
+                        label: 'Option 4',
+                        value: 4,
+                     },
+                  ]}
                />
             </div>
             <div className='content'>
