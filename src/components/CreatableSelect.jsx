@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const StyledMultiValue = styled.div`
    align-items: center;
    background-color: rgb(239, 240, 243);
-   border-radius: 10px;
+   border-radius: 8px;
    display: flex;
    margin: 2px 0 2px 5px;
    max-width: 100%;
@@ -62,9 +62,7 @@ const defaultOptions = {
       control: (styles, { isFocused }) => ({
          ...styles,
          backgroundColor: 'rgb(255, 255, 255)',
-         border: isFocused
-            ? '1.5px solid #0071f2'
-            : '1.5px solid rgba(137, 141, 166, 0.5)',
+         border: isFocused ? '1.5px solid #0071f2' : '1.5px solid #e1e1e1',
          borderRadius: 10,
          boxShadow: 'none',
          color: 'rgb(37, 42, 59)',
@@ -74,9 +72,7 @@ const defaultOptions = {
          padding: 0,
          width: '100%',
          ':hover': {
-            border: isFocused
-               ? '1.5px solid #0071f2'
-               : '1.5px solid rgba(137, 141, 166, 0.5)',
+            border: isFocused ? '1.5px solid #0071f2' : '1.5px solid #e1e1e1',
          },
       }),
       placeholder: styles => ({
@@ -91,7 +87,7 @@ const defaultOptions = {
          padding: '0 0 0 16px',
          position: 'absolute',
          top: 0,
-         width: '100%',
+         width: 'calc(100% - 42px)',
       }),
       input: (styles, { hasValue, isDisabled }) => ({
          ...styles,
@@ -115,7 +111,7 @@ const defaultOptions = {
       indicatorsContainer: styles => ({
          ...styles,
          height: 42,
-         justifyContent: 'flex-end',
+         justifyContent: 'flex-start',
          padding: '0 8px',
          width: 42,
       }),
@@ -162,15 +158,19 @@ const CreatableSelect = ({ onChange, placeholder, value = [] }) => {
          {...defaultOptions}
          inputValue={inputValue}
          onChange={onChange}
-         onInputChange={setInputValue}
          onKeyDown={onKeyDown}
          placeholder={placeholder}
          value={value}
+         onInputChange={(value, { action }) => {
+            if (action !== 'input-blur' && action !== 'menu-close') {
+               setInputValue(value);
+            }
+         }}
       />
    );
 };
 CreatableSelect.defaultProps = {
-   placeholder: 'Create',
+   placeholder: 'Create option',
    value: [],
 };
 CreatableSelect.propTypes = {

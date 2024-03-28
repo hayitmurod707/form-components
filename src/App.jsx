@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import CreatableSelect from './components/CreatableSelect';
 import CreditCardInput from './components/CreditCardInput';
 // import Editor from './components/Editor';
+import DateInput from './components/DateInput';
 import OTPInput from './components/OTPInput';
 import PassportInput from './components/PassportInput';
 import PasswordInput from './components/PasswordInput';
@@ -82,23 +83,23 @@ const StyledOTPContent = styled.div`
       width: 300px;
    }
 `;
-const StyledEditorContent = styled.div`
-   align-items: center;
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   width: 100%;
-   & .sub-title {
-      font-size: 24px;
-      font-weight: 600;
-      margin: 24px 0 8px 0;
-      width: 700px;
-   }
-   & .content {
-      padding: 8px 0 24px 0;
-      width: 700px;
-   }
-`;
+// const StyledEditorContent = styled.div`
+//    align-items: center;
+//    display: flex;
+//    flex-direction: column;
+//    justify-content: center;
+//    width: 100%;
+//    & .sub-title {
+//       font-size: 24px;
+//       font-weight: 600;
+//       margin: 24px 0 8px 0;
+//       width: 700px;
+//    }
+//    & .content {
+//       padding: 8px 0 24px 0;
+//       width: 700px;
+//    }
+// `;
 const App = () => {
    const [passport, setPassport] = useState('');
    const [password, setPassword] = useState('');
@@ -107,8 +108,9 @@ const App = () => {
    const [text, setText] = useState('');
    const [comment, setComment] = useState('');
    const [OTP, setOTP] = useState('');
-   const [info, setInfo] = useState('');
+   // const [info, setInfo] = useState('');
    const [time, setTime] = useState('');
+   const [date, setDate] = useState(new Date());
    const [select, setSelect] = useState(null);
    const [search, setSearch] = useState('');
    const [loading, setLoading] = useState(false);
@@ -139,6 +141,14 @@ const App = () => {
          </StyledHeader>
          <StyledInputContent>
             <h2 className='sub-title'>Inputs</h2>
+            <div className='content'>
+               <label>Text input</label>
+               <DateInput
+                  onChange={setDate}
+                  placeholder='Enter date'
+                  value={date}
+               />
+            </div>
             <div className='content'>
                <label>Text input</label>
                <TextInput
@@ -264,7 +274,7 @@ const App = () => {
          <StyledOTPContent>
             <h2 className='sub-title'>OTP input</h2>
             <div className='content'>
-               <OTPInput value={OTP} onChange={setOTP} />
+               <OTPInput value={OTP} autoFocus={false} onChange={setOTP} />
             </div>
          </StyledOTPContent>
          {/* <StyledEditorContent>

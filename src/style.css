@@ -84,7 +84,7 @@ select {
    background-color: transparent;
 }
 ::-webkit-scrollbar-thumb {
-   background-color: var(--info);
+   background-color: #3a79f3;
    border-radius: 4px;
 }
 html {
