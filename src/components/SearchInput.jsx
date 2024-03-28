@@ -56,13 +56,14 @@ const StyledControl = styled.div`
       justify-content: flex-end;
       padding: 0 12px 0 8px;
       width: 66px;
-      & .loading-content {
+      & .clear-loading {
          align-items: center;
          display: flex;
          height: 23px;
          justify-content: center;
          margin: 0 6px 0 0;
-         width: 23px;
+         min-width: 20px;
+         width: 20px;
          & .loading {
             height: 23px;
             width: 23px;
@@ -76,14 +77,6 @@ const StyledControl = styled.div`
                width: 23px;
             }
          }
-      }
-      & .clear-button {
-         align-items: center;
-         display: flex;
-         height: 23px;
-         justify-content: center;
-         margin: 0 6px 0 0;
-         width: 23px;
          & button {
             align-items: center;
             background-color: transparent;
@@ -94,6 +87,7 @@ const StyledControl = styled.div`
             display: flex;
             height: 23px;
             justify-content: center;
+            margin: 0;
             outline: none;
             padding: 0;
             width: 23px;
@@ -123,20 +117,18 @@ const Control = props => {
          <StyledControl>
             <div className='inner-content'>{children}</div>
             <div className='indicator-content'>
-               {isLoading && !isDisabled ? (
-                  <div className='loading-content'>
+               <div className='clear-loading'>
+                  {isLoading && !isDisabled ? (
                      <div className='loading'>
                         <div></div>
                      </div>
-                  </div>
-               ) : inputValue && !isDisabled ? (
-                  <div className='clear-button'>
+                  ) : inputValue && !isDisabled ? (
                      <button
+                        type='button'
+                        data-focused={isFocused}
                         onClick={() => {
                            onChange('', { action: 'set-value' });
                         }}
-                        type='button'
-                        data-focused={isFocused}
                      >
                         <svg
                            fill='none'
@@ -160,8 +152,8 @@ const Control = props => {
                            />
                         </svg>
                      </button>
-                  </div>
-               ) : null}
+                  ) : null}
+               </div>
                <div className='dropdown-button'>
                   <svg height='18' width='18' viewBox='0 0 20 20'>
                      <path
