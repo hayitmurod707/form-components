@@ -82,6 +82,7 @@ const PasswordInput = forwardRef(
    ) => {
       const [type, setType] = useState(false);
       const ref = useRef(null);
+      const currentRef = incomingRef ? incomingRef : ref;
       return (
          <StyledComponent>
             <input
@@ -89,7 +90,7 @@ const PasswordInput = forwardRef(
                disabled={isDisabled}
                onFocus={onFocus}
                placeholder={placeholder}
-               ref={incomingRef ? incomingRef : ref}
+               ref={currentRef}
                type={type ? 'text' : 'password'}
                value={value}
                onChange={e => {
@@ -102,11 +103,7 @@ const PasswordInput = forwardRef(
                className='toggle'
                onClick={() => {
                   setType(!type);
-                  if (incomingRef) {
-                     incomingRef.current.focus();
-                  } else {
-                     ref.current.focus();
-                  }
+                  currentRef.current.focus();
                }}
             >
                {type ? <Close /> : <Open />}

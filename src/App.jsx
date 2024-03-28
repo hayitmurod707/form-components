@@ -2,13 +2,14 @@ import { Fragment, useState } from 'react';
 import styled from 'styled-components';
 import CreatableSelect from './components/CreatableSelect';
 import CreditCardInput from './components/CreditCardInput';
-import Editor from './components/Editor';
+// import Editor from './components/Editor';
 import OTPInput from './components/OTPInput';
 import PassportInput from './components/PassportInput';
 import PasswordInput from './components/PasswordInput';
 import PhoneInput from './components/PhoneInput';
 import SearchInput from './components/SearchInput';
 import Select from './components/Select';
+import SwitchInput from './components/SwitchInput';
 import TextInput from './components/TextInput';
 import Textarea from './components/Textarea';
 import TimeInput from './components/TimeInput';
@@ -111,6 +112,7 @@ const App = () => {
    const [select, setSelect] = useState(null);
    const [search, setSearch] = useState('');
    const [loading, setLoading] = useState(false);
+   const [checked, setChecked] = useState(false);
    const [creatableOptions, setCreatableOptions] = useState([]);
    const onChange = value => {
       const search = typeof value?.label === 'string' ? value.label : value;
@@ -247,6 +249,10 @@ const App = () => {
                />
             </div>
             <div className='content'>
+               <label>Switch input</label>
+               <SwitchInput onChange={setChecked} checked={checked} />
+            </div>
+            <div className='content'>
                <label>Textarea</label>
                <Textarea
                   onChange={setComment}
@@ -261,12 +267,12 @@ const App = () => {
                <OTPInput value={OTP} onChange={setOTP} />
             </div>
          </StyledOTPContent>
-         <StyledEditorContent>
+         {/* <StyledEditorContent>
             <h2 className='sub-title'>Editor</h2>
             <div className='content'>
                <Editor value={info} onChange={setInfo} />
             </div>
-         </StyledEditorContent>
+         </StyledEditorContent> */}
       </Fragment>
    );
 };

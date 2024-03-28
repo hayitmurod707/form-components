@@ -1,290 +1,206 @@
-import Input from 'cleave.js/react';
-import moment from 'moment';
-import { OverlayPanel } from 'primereact/overlaypanel';
 import { bool, func, object } from 'prop-types';
-import { Fragment, useRef, useState } from 'react';
-import Calendar from 'react-calendar';
-import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
+import ReactSelect, { components } from 'react-select';
 import styled from 'styled-components';
-const StyledSingleValue = styled.div`
-   border-radius: 10px;
-   height: 44px;
-   position: relative;
+const StyledControl = styled.div`
+   display: flex;
+   height: 100%;
    width: 100%;
-   & input {
-      background-color: transparent;
-      border-radius: 10px;
-      border: 1.5px solid #e1e1e1;
-      color: #3c3c3c;
-      font-size: 16px;
-      font-weight: 500;
-      height: 44px;
-      outline: none;
-      padding-left: 15px;
-      width: 100%;
-      &[data-error='true'] {
-         border-color: #e41d32;
-      }
-      &:focus {
-         border: 1.5px solid #3a79f3;
-         & + .dropdown {
-            color: #3a79f3;
-         }
-      }
-      &:disabled {
-         color: #717171;
-      }
-   }
-   & .dropdown {
+   & .search-button {
       align-items: center;
-      color: #949494;
-      cursor: pointer;
+      background-color: transparent;
+      color: #808080;
+      cursor: text;
       display: flex;
-      height: 24px;
+      height: 44px;
       justify-content: center;
-      position: absolute;
-      right: 12px;
-      top: 10px;
-      width: 24px;
-      &[data-disabled='true'] {
-         cursor: default;
-      }
-   }
-`;
-const StyledOverlay = styled(OverlayPanel)`
-   border-radius: 16px;
-   box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
-   margin: 0;
-   width: 300px;
-   &.enter {
-      opacity: 1;
-      transform: scale(1);
-   }
-   &.leave {
-      opacity: 0;
-      transform: scale(0.6);
-      visibility: hidden;
-   }
-   &:before,
-   &:after {
-      display: none;
-   }
-   & .p-overlaypanel-content {
-      padding: 10px;
-      & .react-calendar {
-         border: none;
-         width: 280px !important;
-         & .react-calendar__navigation {
-            display: flex;
-            margin: 0;
-            & button {
-               background-color: #f4f4f4;
-               border-radius: 12px;
-               border: none;
-               color: #717171;
-               cursor: pointer;
-               font-size: 16px;
-               font-weight: 500;
-               height: 40px;
-               min-width: 40px;
-               outline: none;
-               padding: 0;
-               &:hover,
-               &:focus {
-                  background-color: #3a79f3;
-                  color: #ffffff;
-                  cursor: pointer;
-               }
-               &[disabled] {
-                  color: #717171;
-                  cursor: not-allowed;
-                  &:hover,
-                  &:focus {
-                     background-color: #f4f4f4;
-                     color: #717171;
-                  }
-               }
-            }
-            & .react-calendar__navigation__next-button {
-               margin: 0 0 0 5px;
-               & svg {
-                  margin: 2px 0 0 2px;
-               }
-            }
-            & .react-calendar__navigation__prev-button {
-               margin: 0 5px 0 0;
-               & svg {
-                  margin: 2px 2px 0 0;
-               }
-            }
-         }
-         & .react-calendar__viewContainer {
-            & button {
-               align-items: center;
-               background-color: transparent;
-               border: none;
-               cursor: pointer;
-               display: flex;
-               flex-basis: initial !important;
-               font-size: 15px;
-               font-weight: 500;
-               justify-content: center;
-               &[disabled] {
-                  background-color: transparent !important;
-                  color: rgb(105, 111, 133) !important;
-                  cursor: not-allowed;
-               }
-            }
-            & .react-calendar__month-view__weekdays__weekday {
-               align-items: center;
-               color: rgb(105, 111, 133);
-               cursor: default;
-               display: flex;
-               flex-basis: initial !important;
-               font-size: 15px;
-               font-weight: 500;
-               height: 40px;
-               justify-content: center;
-               padding: 0;
-               text-transform: lowercase;
-               text-transform: capitalize;
-               width: 40px;
-               & abbr {
-                  text-decoration: none !important;
-                  overflow: hidden;
-               }
-            }
-            & .react-calendar__month-view__days__day {
-               border-radius: 19px;
-               height: 38px;
-               justify-content: center;
-               margin: 1px;
-               width: 38px;
-               &:hover {
-                  color: #ffffff;
-                  background: #3a79f3;
-               }
-            }
-            & .react-calendar__month-view__days__day--neighboringMonth {
-               color: rgb(105, 111, 133);
-            }
-            & .react-calendar__month-view__days__day--weekend {
-               color: #ff0000;
-            }
-            & .react-calendar__year-view__months__month,
-            & .react-calendar__decade-view__years__year,
-            & .react-calendar__century-view__decades__decade {
-               border-radius: 8px;
-               height: 35px;
-               margin: 10px 0;
-               padding: 0 !important;
-               width: calc(100% / 3);
-               &:hover {
-                  background-color: #3a79f3;
-                  color: #ffffff;
-               }
-            }
-            & .react-calendar__tile--now {
-               background: #00cc56;
-               color: #ffffff;
-               &:hover {
-                  background-color: #3a79f3;
-               }
-            }
-            & .react-calendar__tile--hasActive,
-            & .react-calendar__tile--active {
-               background-color: #3a79f3;
-               color: #ffffff;
-               &:hover {
-                  background-color: #3a79f3;
-                  color: #ffffff;
-               }
-            }
+      width: 46px;
+      & svg {
+         transition: 100ms;
+         margin: 0 0 0 4px;
+         & g {
+            stroke: '#949494';
          }
       }
    }
+   & .inner-content {
+      height: 100%;
+      padding: 0 0 0 16px;
+      width: calc(100% - 66px);
+      & input {
+         display: flex;
+         max-width: 100% !important;
+         min-width: 100% !important;
+         opacity: 1 !important;
+      }
+   }
+   & .indicator-content {
+      align-items: center;
+      display: flex;
+      height: 44px;
+      justify-content: flex-end;
+      padding: 0 12px 0 8px;
+      width: 66px;
+      & .dropdown-button {
+         align-items: center;
+         background-color: transparent;
+         color: #808080;
+         cursor: pointer;
+         display: flex;
+         height: 23px;
+         justify-content: center;
+         width: 23px;
+      }
+   }
 `;
-const Dropdown = () => (
-   <svg fill='none' height='20' viewBox='0 0 20 20' width='20'>
-      <path
-         d='M6.66667 5.83333V2.5M13.3333 5.83333V2.5M5.83333 9.16667H14.1667M4.16667 17.5H15.8333C16.7538 17.5 17.5 16.7538 17.5 15.8333V5.83333C17.5 4.91286 16.7538 4.16667 15.8333 4.16667H4.16667C3.24619 4.16667 2.5 4.91286 2.5 5.83333V15.8333C2.5 16.7538 3.24619 17.5 4.16667 17.5Z'
-         stroke='currentColor'
-         strokeLinecap='round'
-         strokeLinejoin='round'
-         strokeWidth='2'
-      />
-   </svg>
-);
-const NextLabel = () => (
-   <svg width='15' height='15' viewBox='0 0 18 18' fill='none'>
-      <path
-         d='M6.375 3.75L11.625 9L6.375 14.25'
-         stroke='currentColor'
-         strokeLinecap='round'
-         strokeLinejoin='round'
-         strokeWidth='2'
-      />
-   </svg>
-);
-const PrevLabel = () => (
-   <svg width='14' height='14' viewBox='0 0 18 18' fill='none'>
-      <path
-         d='M11.625 14.25L6.375 9L11.625 3.75'
-         stroke='currentColor'
-         strokeLinecap='round'
-         strokeLinejoin='round'
-         strokeWidth='2'
-      />
-   </svg>
-);
-const overlayOptions = {
-   pt: {
-      root: props => ({
-         className: props?.state?.visible ? 'enter' : 'leave',
-      }),
-   },
+const Control = ({ children, ...props }) => {
+   return (
+      <components.Control {...props}>
+         <StyledControl>
+            <div className='inner-content'>{children}</div>
+            <div className='indicator-content'>
+               <div className='dropdown-button'>
+                  <svg height='18' width='18' viewBox='0 0 20 20'>
+                     <path
+                        fill='#949494'
+                        d='M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z'
+                     ></path>
+                  </svg>
+               </div>
+            </div>
+         </StyledControl>
+      </components.Control>
+   );
 };
-const dateOptions = {
-   next2Label: null,
-   nextLabel: <NextLabel />,
-   prev2Label: null,
-   prevLabel: <PrevLabel />,
+const Menu = ({ isLoading, children, ...props }) =>
+   !isLoading && <components.Menu {...props}>{children}</components.Menu>;
+const defaultOptions = {
+   components: {
+      Control,
+      IndicatorsContainer: () => null,
+      Menu,
+   },
+   filterOption: option => option,
+   isClearable: true,
+   isMulti: false,
+   isSearchable: true,
+   maxMenuHeight: 230,
+   menuPlacement: 'auto',
+   menuPortalTarget: document.body,
 };
-const locale = {
-   months: {
-      ru: [
-         'Январь',
-         'Февраль',
-         'Март',
-         'Апреля',
-         'Май',
-         'Июнь',
-         'Июль',
-         'Август',
-         'Сентябрь',
-         'Октябрь',
-         'Ноябрь',
-         'Декабрь',
-      ],
-      uz: [
-         'Yanvar',
-         'Fevral',
-         'Mart',
-         'Aprel',
-         'May',
-         'Iyun',
-         'Iyul',
-         'Avgust',
-         'Sentyabr',
-         'Oktyabr',
-         'Noyabr',
-         'Dekabr',
-      ],
-   },
-   days: {
-      ru: ['Во', 'По', 'Вт', 'Ср', 'Че', 'Пя', 'Су'],
-      uz: ['Ya', 'Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sh'],
-   },
+const styles = {
+   container: styles => ({
+      ...styles,
+      height: 46,
+      width: '100%',
+   }),
+   valueContainer: styles => ({
+      ...styles,
+      display: 'flex',
+      height: 44,
+      padding: 0,
+   }),
+   placeholder: styles => ({
+      ...styles,
+      alignItems: 'center',
+      color: '#717171',
+      display: 'flex',
+      fontSize: 17,
+      fontWeight: 500,
+      height: '100%',
+      left: 0,
+      margin: 0,
+      padding: '0 8px 0 0',
+      position: 'absolute',
+      top: 0,
+   }),
+   input: (styles, { isDisabled }) => ({
+      ...styles,
+      color: isDisabled ? '#717171' : '#212121',
+      fontSize: 17,
+      fontWeight: 500,
+      height: '100%',
+      left: 0,
+      margin: 0,
+      padding: 0,
+      position: 'absolute',
+      top: 0,
+      visibility: 'visible',
+   }),
+   menu: styles => ({
+      ...styles,
+      backgroundColor: '#ffffff',
+      border: 'none',
+      borderRadius: 12,
+      boxShadow:
+         '0 1px 20px 0 rgba(13, 46, 105, 0.07), 0 1px 20px 0 rgba(13, 46, 105, 0.07)',
+      margin: 0,
+      overflow: 'hidden',
+      padding: 0,
+   }),
+   menuPortal: styles => ({ ...styles, zIndex: 9999 }),
+   menuList: styles => ({
+      ...styles,
+      padding: 5,
+      '::-webkit-scrollbar': {
+         padding: '0 5px 0 0',
+         width: 6,
+      },
+      '::-webkit-scrollbar-track': {
+         backgroundColor: 'transparent',
+      },
+      '::-webkit-scrollbar-thumb': {
+         backgroundColor: '#3a79f3',
+         borderRadius: 3,
+      },
+   }),
+   option: (styles, { isSelected, isDisabled, isFocused }) => ({
+      ...styles,
+      backgroundColor: isDisabled
+         ? '#f7f8fc'
+         : isSelected
+         ? '#3a79f3'
+         : isFocused
+         ? 'rgba(82, 85, 241, 0.1)'
+         : '#ffffff',
+      borderRadius: 10,
+      color: isDisabled
+         ? '#696f85'
+         : isSelected
+         ? '#ffffff'
+         : isFocused
+         ? '#252a3b'
+         : '#252a3b',
+      cursor: isDisabled ? 'not-allowed' : 'pointer',
+      fontSize: 17,
+      fontWeight: 500,
+      height: 44,
+      overflow: 'hidden',
+      padding: '11px 12px',
+      textOverflow: 'ellipsis',
+      transition: 200,
+      transitionTimingFunction: 'cubic-bezier(0, 0, 1, 1)',
+      whiteSpace: 'nowrap',
+      width: '100%',
+      ':hover': {
+         backgroundColor: isDisabled
+            ? '#f7f8fc'
+            : isSelected
+            ? '#3a79f3'
+            : 'rgba(82, 85, 241, 0.1)',
+      },
+   }),
+   noOptionsMessage: styles => ({
+      ...styles,
+      color: 'rgb(37, 42, 59)',
+      cursor: 'not-allowed',
+      fontSize: 17,
+      fontWeight: 500,
+      height: 44,
+      padding: '10px 12px',
+      textAlign: 'left',
+      width: '100%',
+   }),
 };
 const DateInput = ({
    isDisabled,
@@ -295,80 +211,53 @@ const DateInput = ({
    onFocus,
    value,
 }) => {
-   const ref = useRef(null);
-   const { i18n } = useTranslation();
-   const initialValue = moment(value).format('DD-MM-YYYY');
-   const [date, setDate] = useState(initialValue);
-   const { language } = i18n;
-   const days = locale?.days[language];
-   const months = locale?.months[language];
+   const [menuIsOpen, setMenuIsOpen] = useState(false);
    return (
-      <Fragment>
-         <StyledSingleValue
-            onClick={e => {
-               if (!isDisabled) {
-                  ref.current.toggle(e);
-                  if (typeof onFocus === 'function') {
-                     onFocus();
-                  }
-               }
-            }}
-         >
-            <Input
-               data-error={isError}
-               disabled={isDisabled}
-               value={date}
-               options={{
-                  date: true,
-                  datePattern: ['d', 'm', 'Y'],
-                  delimiter: '-',
-               }}
-               onBlur={() => {
-                  setDate(initialValue);
-               }}
-               onChange={e => {
-                  const date = e.target.value;
-                  const value = date.split('-');
-                  const day = parseInt(value[0] ? value[0] : 0);
-                  const month = parseInt(value[1] ? value[1] - 1 : 0);
-                  const year = parseInt(value[2] || 0);
-                  const incomingValue = new Date(year, month, day);
-                  const parsedValue =
-                     incomingValue.getTime() < minDate.getTime()
-                        ? minDate
-                        : incomingValue.getTime() > maxDate.getTime()
-                        ? maxDate
-                        : incomingValue;
-                  onChange(parsedValue);
-                  setDate(date);
-               }}
-            />
-            <span className='dropdown' data-disabled={isDisabled}>
-               <Dropdown />
-            </span>
-         </StyledSingleValue>
-         <StyledOverlay {...overlayOptions} ref={ref}>
-            <Calendar
-               {...dateOptions}
-               formatMonth={(_, date) => months[date?.getMonth()]}
-               formatShortWeekday={(_, date) => days[date?.getDay()]}
-               maxDate={maxDate}
-               minDate={minDate}
-               value={value}
-               navigationLabel={({ view, label, date }) =>
-                  view === 'month'
-                     ? `${months[date?.getMonth()]} ${date?.getFullYear()}`
-                     : label
-               }
-               onChange={(date, e) => {
-                  setDate(moment(date).format('DD-MM-YYYY'));
-                  onChange(date);
-                  ref.current.toggle(e);
-               }}
-            />
-         </StyledOverlay>
-      </Fragment>
+      <ReactSelect
+         {...defaultOptions}
+         isDisabled={isDisabled}
+         menuIsOpen={menuIsOpen}
+         value={null}
+         onMenuOpen={() => {
+            setMenuIsOpen(true);
+         }}
+         onMenuClose={() => {
+            setMenuIsOpen(false);
+         }}
+         styles={{
+            ...styles,
+            control: (styles, { isFocused }) => ({
+               ...styles,
+               backgroundColor: '#ffffff',
+               border: `1.5px solid ${
+                  isError ? '#e41d32' : isFocused ? '#397af5' : '#e1e1e1'
+               }`,
+               borderRadius: 10,
+               boxShadow: 'none',
+               color: 'rgb(37, 42, 59)',
+               cursor: 'text',
+               height: 46,
+               minHeight: 46,
+               minWidth: 100,
+               outline: 'none',
+               padding: 0,
+               width: '100%',
+               ':hover': {
+                  border: `1.5px solid ${
+                     isError ? '#e41d32' : isFocused ? '#397af5' : '#e1e1e1'
+                  }`,
+               },
+            }),
+         }}
+      />
    );
+};
+DateInput.defaultProps = {
+   isDisabled: false,
+   isError: false,
+   maxDate: new Date('2200-01-01'),
+   minDate: new Date('1970-01-01'),
+   value: new Date(),
 };
 DateInput.propTypes = {
    isDisabled: bool,
@@ -378,12 +267,5 @@ DateInput.propTypes = {
    onChange: func.isRequired,
    onFocus: func,
    value: object.isRequired,
-};
-DateInput.defaultProps = {
-   isDisabled: false,
-   isError: false,
-   maxDate: new Date('2200-01-01'),
-   minDate: new Date('1970-01-01'),
-   value: new Date(),
 };
 export default DateInput;

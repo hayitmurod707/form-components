@@ -23,6 +23,7 @@ const StyledMultiValue = styled.div`
       align-items: center;
       background-color: rgba(255, 0, 0, 0.7);
       border-radius: 10px;
+      cursor: pointer;
       display: flex;
       height: 19px;
       justify-content: center;
@@ -67,7 +68,7 @@ const defaultOptions = {
          borderRadius: 10,
          boxShadow: 'none',
          color: 'rgb(37, 42, 59)',
-         cursor: 'pointer',
+         cursor: 'text',
          minHeight: 44,
          outline: 'none',
          padding: 0,
@@ -124,6 +125,7 @@ const defaultOptions = {
          backgroundColor: 'rgba(255, 0, 0, 0.7)',
          borderRadius: 11,
          color: 'rgb(255, 255, 255)',
+         cursor: 'pointer',
          display: 'flex',
          height: 22,
          justifyContent: 'center',
