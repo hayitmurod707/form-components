@@ -1,5 +1,5 @@
 import { array, func } from 'prop-types';
-import { Range as RangeSlider, getTrackBackground } from 'react-range';
+import { Range, getTrackBackground } from 'react-range';
 import styled from 'styled-components';
 const StyledTrack = styled.div`
    align-items: center;
@@ -30,7 +30,7 @@ const StyledThumb = styled.div`
       position: absolute;
       width: 24px;
       &:before {
-         background-color: #5254f1;
+         background-color: #3a79f3;
          border-radius: 0 0 2px 0;
          bottom: -6px;
          content: '';
@@ -42,7 +42,7 @@ const StyledThumb = styled.div`
       }
       & div {
          align-items: center;
-         background-color: #5254f1;
+         background-color: #3a79f3;
          border-radius: 8px;
          color: #ffffff;
          display: flex;
@@ -54,20 +54,6 @@ const StyledThumb = styled.div`
    }
 `;
 const defaultOptions = {
-   // allowOverlap: false, // boolean
-   // direction: Direction.Right //  one of ['to right', 'to left', 'to bottom', 'to top'] string
-   // disabled: false, // boolean
-   // draggableTrack: false, // boolean
-   // max: 100, // number
-   // min: 0, // number
-   // onChange: required // function
-   // onFinalChange: required // function
-   // renderMark: - // React Node
-   // renderThumb: required // React Node
-   // renderTrack: required // React Node
-   // rtl: false, // boolean
-   // step: 1, // number
-   // values: required [0, 100] // array
    renderThumb: ({ props, value, isDragged }) => (
       <StyledThumb {...props}>
          {isDragged && (
@@ -81,10 +67,10 @@ const defaultOptions = {
       const values = children.map(child => child?.props['aria-valuenow']);
       const colors =
          values.length === 1
-            ? ['#5254f1', '#f6f6f6']
+            ? ['#3a79f3', '#f6f6f6']
             : [
                  '#f6f6f6',
-                 ...[...Array(values.length - 1)].fill('#5254f1'),
+                 ...[...Array(values.length - 1)].fill('#3a79f3'),
                  '#f6f6f6',
               ];
       const background = getTrackBackground({
@@ -106,12 +92,14 @@ const defaultOptions = {
       );
    },
 };
-const ReactRange = props => <RangeSlider {...defaultOptions} {...props} />;
+const ReactRange = ({ value, ...props }) => (
+   <Range {...defaultOptions} {...props} values={value} />
+);
 ReactRange.defaultProps = {
-   values: [0, 100],
+   value: [0, 100],
 };
 ReactRange.propTypes = {
    onChange: func.isRequired,
-   values: array.isRequired,
+   value: array.isRequired,
 };
 export default ReactRange;

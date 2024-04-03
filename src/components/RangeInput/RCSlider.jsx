@@ -10,6 +10,8 @@ const StyledElement = styled.div`
    & .rc-slider {
       height: 5px;
       padding: 0;
+      position: relative;
+      width: 100%;
       & .rc-slider-rail {
          background-color: #f6f6f6;
          border-radius: 3px;
@@ -17,12 +19,18 @@ const StyledElement = styled.div`
          height: 5px;
       }
       & .rc-slider-track {
-         background-color: #5254f1;
+         background-color: #3a79f3;
          cursor: pointer;
          height: 5px;
+         position: absolute;
+         top: 0;
       }
       & .rc-slider-step {
          height: 5px;
+      }
+      & .rc-slider-handle {
+         position: absolute;
+         top: 0;
       }
    }
 `;
@@ -31,11 +39,15 @@ const StyledHandle = styled.div`
    border-radius: 50%;
    border: none !important;
    box-shadow: #cacaca 0px 2px 8px !important;
+   cursor: grab;
    height: 24px;
    margin-top: -9px;
    opacity: 1;
-   width: 24px;
    outline: none;
+   width: 24px;
+   &[data-dragging='true'] {
+      cursor: grabbing;
+   }
    & .value {
       align-items: center;
       bottom: 34px;
@@ -46,7 +58,7 @@ const StyledHandle = styled.div`
       position: absolute;
       width: 24px;
       &:before {
-         background-color: #5254f1;
+         background-color: #3a79f3;
          border-radius: 0 0 2px 0;
          bottom: -6px;
          content: '';
@@ -58,7 +70,7 @@ const StyledHandle = styled.div`
       }
       & div {
          align-items: center;
-         background-color: #5254f1;
+         background-color: #3a79f3;
          border-radius: 8px;
          color: #ffffff;
          display: flex;
@@ -71,40 +83,11 @@ const StyledHandle = styled.div`
    }
 `;
 const defaultOptions = {
-   // activeDotStyle: {}, // object or function
-   // className: 'rc-slider', // string
-   // count: 1, // number
-   // defaultValue: [0, 0], // array
-   // disabled: false, // boolean
-   // dotStyle: {}, // object or function
-   // dots: false // boolean
-   // draggableTrack: false, // boolean
-   // handle: Component
-   // handleStyle: [{}], // array or object
-   // included: true, // boolean
-   // keyboard: true, // boolean
-   // marks: {} // object,
-   // max: 100, // number
-   // maximumTrackStyle: {}, // object
-   // min: 0, // number
-   // minimumTrackStyle: {}, // object
-   // onAfterChange: required // function
-   // onBeforeChange: required // function
-   // onChange: required // function
-   // railStyle: {}, // object
-   // reverse: false, // boolean
-   // step: 1, // number
-   // tabIndex: [], // array
-   // tipFormatter: function || null,
-   // tipTransitionName: '', // string
-   // trackStyle: [{}], // array or object
-   // value: [], // array
-   // vertical: false, // boolean
-   allowCross: false, // boolean
+   allowCross: false,
    pushable: true,
-   range: true, // boolean
+   range: true,
    handleRender: ({ props }, { value, dragging }) => (
-      <StyledHandle {...props}>
+      <StyledHandle {...props} data-dragging={dragging}>
          {dragging && (
             <div className='value'>
                <div>{value}</div>

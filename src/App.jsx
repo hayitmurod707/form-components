@@ -3,11 +3,18 @@ import styled from 'styled-components';
 import CreatableSelect from './components/CreatableSelect';
 import CreditCardInput from './components/CreditCardInput';
 // import Editor from './components/Editor';
+import DateComponent from './components/Date';
 import DateInput from './components/DateInput';
 import OTPInput from './components/OTPInput';
 import PassportInput from './components/PassportInput';
 import PasswordInput from './components/PasswordInput';
 import PhoneInput from './components/PhoneInput';
+import {
+   RCSlider,
+   ReactInputRange,
+   ReactRange,
+   ReactSlider,
+} from './components/RangeInput';
 import SearchInput from './components/SearchInput';
 import Select from './components/Select';
 import SwitchInput from './components/SwitchInput';
@@ -63,6 +70,8 @@ const StyledInputContent = styled.div`
       & label {
          display: block;
          margin: 0 0 6px 0;
+         font-weight: 500;
+         font-size: 16px;
       }
    }
 `;
@@ -116,6 +125,8 @@ const App = () => {
    const [loading, setLoading] = useState(false);
    const [checked, setChecked] = useState(false);
    const [creatableOptions, setCreatableOptions] = useState([]);
+   const [range, setRange] = useState([20, 40, 60, 80]);
+   const [val, setVal] = useState({ min: 30, max: 80 });
    const onChange = value => {
       const search = typeof value?.label === 'string' ? value.label : value;
       setSearch(search);
@@ -141,6 +152,14 @@ const App = () => {
          </StyledHeader>
          <StyledInputContent>
             <h2 className='sub-title'>Inputs</h2>
+            <div className='content'>
+               <label>Date</label>
+               <DateComponent
+                  onChange={setDate}
+                  placeholder='Enter date'
+                  value={date}
+               />
+            </div>
             <div className='content'>
                <label>Text input</label>
                <DateInput
@@ -261,6 +280,22 @@ const App = () => {
             <div className='content'>
                <label>Switch input</label>
                <SwitchInput onChange={setChecked} checked={checked} />
+            </div>
+            <div className='content'>
+               <label>ReactSlider</label>
+               <ReactSlider onChange={setRange} value={range} />
+            </div>
+            <div className='content'>
+               <label>ReactRange</label>
+               <ReactRange onChange={setRange} value={range} />
+            </div>
+            <div className='content'>
+               <label>RCSlider</label>
+               <RCSlider onChange={setRange} value={range} />
+            </div>
+            <div className='content'>
+               <label>ReactInputRange</label>
+               <ReactInputRange onChange={setVal} value={val} />
             </div>
             <div className='content'>
                <label>Textarea</label>

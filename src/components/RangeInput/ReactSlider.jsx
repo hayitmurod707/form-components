@@ -23,6 +23,7 @@ const StyledThumb = styled.div`
    top: -10px;
    width: 24px;
    &:active {
+      cursor: grabbing;
       & .value {
          align-items: center;
          bottom: 34px;
@@ -33,7 +34,7 @@ const StyledThumb = styled.div`
          position: absolute;
          width: 24px;
          &:before {
-            background-color: #5254f1;
+            background-color: #3a79f3;
             border-radius: 0 0 2px 0;
             bottom: -6px;
             content: '';
@@ -45,7 +46,7 @@ const StyledThumb = styled.div`
          }
          & div {
             align-items: center;
-            background-color: #5254f1;
+            background-color: #3a79f3;
             border-radius: 8px;
             color: #ffffff;
             display: flex;
@@ -65,42 +66,15 @@ const StyledTrack = styled.div`
    bottom: 0;
    top: 0;
    &[data-active='active'] {
-      background-color: #5254f1;
+      background-color: #3a79f3;
    }
    &[data-active='inactive'] {
       background-color: #f6f6f6;
    }
 `;
 const defaultOptions = {
-   // areaLabel: array, // one of type string
-   // areaLabelledBy: array, // one of type string
-   // ariaValuetext
-   // className: 'slider', // string slider
-   // disabled: false, boolean false
-   // invert: false, // boolean false
-   // markClassName: 'mark', // string 'mark'
-   // marks: array, []
-   // max: 100, number
-   // min: 0, number
-   // onAfterChange: function,
-   // onBeforeChange: function,
-   // onChange: function, // required
-   // onSliderClick: function,
-   // orientation: string, // one of type horizontal vertical
-   // pageFn: function,
-   // pearling: boolean, false
-   // renderMark: function jsx,
-   // renderThumb: function jsx,
-   // renderTrack: function jsx,
-   // snapDragDisabled: boolean, // false
-   // step: number, // 1
-   // thumbActiveClassName: 'active', // string 'active'
-   // thumbClassName: 'thumb', // string 'thumb'
-   // trackClassName: 'track', // string 'track'
-   // value: array, // required
-   // withTracks: false, // true
-   defaultValue: [0, 100], // 0
-   minDistance: 1, // number 0
+   defaultValue: [0, 100],
+   minDistance: 1,
    renderThumb: (props, { valueNow }) => (
       <StyledThumb {...props} className={null}>
          <div className='value'>
@@ -112,10 +86,10 @@ const defaultOptions = {
       <StyledTrack
          {...props}
          className={null}
+         index={index}
          data-active={
             index === 0 || index === value.length ? 'inactive' : 'active'
          }
-         index={index}
       />
    ),
 };
