@@ -1,30 +1,46 @@
-import Input from 'cleave.js/react';
 import { bool, func, object } from 'prop-types';
 import { useState } from 'react';
 import ReactSelect, { components } from 'react-select';
-import styled from 'styled-components';
-const StyledInput = styled(Input)`
-   background-color: transparent;
-   border-radius: 10px;
-   border: 1.5px solid #e1e1e1;
-   font-size: 17px;
-   font-weight: 500;
-   height: 46px;
-   outline: none;
-   padding-left: 17px;
-   width: 100%;
-   &[data-error='true'] {
-      border: 1.5px solid #ff5749;
-   }
-   &:disabled {
-      color: #717171;
-   }
-   &:focus {
-      border: 1.5px solid #5254f1;
-   }
-`;
-const Select = ({ isError, onChange, placeholder, ref, ...props }) => {
+const Select = ({ isError, onChange, ref }) => {
    const [menuIsOpen, setMenuIsOpen] = useState(false);
+   const [value, setValue] = useState('');
+   const onInputChange = (value, { action }) => {
+      if (action !== 'input-blur' && action !== 'menu-close') {
+         const newValue = value.replace(/\D/g, '');
+         const values = [...newValue];
+         const zero = values[0] || '';
+         const first = values[1] || '';
+         const second = values[2] || '';
+         const third = values[3] || '';
+         const fourth = values[4] || '';
+         let day = '';
+         let month = '';
+         let year = '';
+         console.log(+(String(zero) + String(first)));
+         if (+String(zero) > 4) {
+            day = '0' + String(zero);
+         } else if (+(String(zero) + String(first)) > 31) {
+            day = '0' + String(zero);
+            if (+(String(second) + String(third)) > 12) {
+               month = '0' + String(second);
+            } else {
+               month = String(first) + String(second);
+            }
+         } else {
+            day = String(zero) + String(first);
+            if (+first > 2) {
+               month = '0' + String(second);
+            } else if (+(String(third) + String(second)) > 12) {
+               month = '0' + String(second);
+            } else {
+               month = String(second) + String(third);
+            }
+         }
+         const returnValue = `${day}-${month}-${year}`;
+         console.log(returnValue);
+         setValue(newValue);
+      }
+   };
    const Menu = props => {
       console.log(props);
       return (
@@ -33,70 +49,21 @@ const Select = ({ isError, onChange, placeholder, ref, ...props }) => {
          </components.Menu>
       );
    };
-   const Input = props => {
-      console.log(props);
-      const { isDisabled, innerRef } = props;
-      const {
-         className, // not listed in commonProps documentation, needs to be removed to allow Emotion to generate classNames
-         clearValue,
-         cx,
-         getStyles,
-         getClassNames,
-         getValue,
-         hasValue,
-         isMulti,
-         isRtl,
-         options, // not listed in commonProps documentation
-         selectOption,
-         selectProps,
-         setValue,
-         theme,
-         ...innerProps
-      } = props;
-      return (
-         <StyledInput
-            data-error={isError}
-            disabled={isDisabled}
-            // ref={innerRef}
-            placeholder=''
-            type='text'
-            {...innerProps}
-            htmlRef={inputNode => {
-               if (!innerRef) {
-                  return;
-               }
-               if (typeof innerRef === 'function') {
-                  innerRef(inputNode);
-               } else {
-                  innerRef.current = inputNode;
-               }
-            }}
-            options={{
-               time: true,
-               timePattern: ['h', 'm', 's'],
-            }}
-            onChange={e => {
-               if (!isDisabled) {
-                  onChange(e.target.value);
-               }
-            }}
-            {...props}
-         />
-      );
-   };
    const IndicatorsContainer = () => null;
    const SingleValue = () => null;
    return (
       <ReactSelect
-         {...props}
-         components={{ Input, Menu, IndicatorsContainer, SingleValue }}
+         components={{ Menu, IndicatorsContainer, SingleValue }}
+         inputValue={value}
          isClearable={false}
          isMulti={false}
          isSearchable={true}
          maxMenuHeight={230}
-         menuPlacement='auto'
          menuIsOpen={menuIsOpen}
+         menuPlacement='auto'
          menuPortalTarget={document.body}
+         onInputChange={onInputChange}
+         placeholder=''
          onMenuClose={() => {
             setMenuIsOpen(false);
          }}
@@ -104,10 +71,12 @@ const Select = ({ isError, onChange, placeholder, ref, ...props }) => {
             setMenuIsOpen(true);
          }}
          styles={{
-            control: styles => ({
+            control: (styles, { isFocused }) => ({
                ...styles,
                backgroundColor: '#ffffff',
-               border: 'none',
+               border: `1.5px solid ${
+                  isError ? '#e41d32' : isFocused ? '#397af5' : '#e1e1e1'
+               }`,
                borderRadius: 10,
                boxShadow: 'none',
                color: 'rgb(37, 42, 59)',
@@ -119,7 +88,9 @@ const Select = ({ isError, onChange, placeholder, ref, ...props }) => {
                padding: 0,
                width: '100%',
                ':hover': {
-                  border: 'none',
+                  border: `1.5px solid ${
+                     isError ? '#e41d32' : isFocused ? '#397af5' : '#e1e1e1'
+                  }`,
                },
             }),
             valueContainer: styles => ({
@@ -127,6 +98,19 @@ const Select = ({ isError, onChange, placeholder, ref, ...props }) => {
                display: 'flex',
                height: 46,
                padding: 0,
+            }),
+            input: (styles, { isDisabled }) => ({
+               ...styles,
+               color: isDisabled ? '#717171' : '#212121',
+               fontSize: 17,
+               fontWeight: 500,
+               height: '100%',
+               left: 0,
+               margin: 0,
+               padding: 0,
+               position: 'absolute',
+               top: 0,
+               visibility: 'visible',
             }),
             singleValue: (styles, { isDisabled }) => ({
                ...styles,

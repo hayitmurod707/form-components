@@ -4,7 +4,7 @@ import CreatableSelect from './components/CreatableSelect';
 import CreditCardInput from './components/CreditCardInput';
 // import Editor from './components/Editor';
 import DateComponent from './components/Date';
-import DateInput from './components/DateInput';
+import MultiSelect from './components/MultiSelect';
 import OTPInput from './components/OTPInput';
 import PassportInput from './components/PassportInput';
 import PasswordInput from './components/PasswordInput';
@@ -127,6 +127,7 @@ const App = () => {
    const [creatableOptions, setCreatableOptions] = useState([]);
    const [range, setRange] = useState([20, 40, 60, 80]);
    const [val, setVal] = useState({ min: 30, max: 80 });
+   const [value, setValue] = useState([]);
    const onChange = value => {
       const search = typeof value?.label === 'string' ? value.label : value;
       setSearch(search);
@@ -153,21 +154,33 @@ const App = () => {
          <StyledInputContent>
             <h2 className='sub-title'>Inputs</h2>
             <div className='content'>
-               <label>Date</label>
-               <DateComponent
-                  onChange={setDate}
-                  placeholder='Enter date'
-                  value={date}
+               <label>Multi Select</label>
+               <MultiSelect
+                  options={[
+                     { value: 1, label: 'Option 1' },
+                     { value: 2, label: 'Option 2' },
+                     { value: 3, label: 'Option 3' },
+                     { value: 4, label: 'Option 4' },
+                     { value: 5, label: 'Option 5' },
+                     { value: 6, label: 'Option 6' },
+                     { value: 7, label: 'Option 7' },
+                  ]}
+                  onChange={setValue}
+                  value={value}
                />
             </div>
             <div className='content'>
+               <label>Date</label>
+               <DateComponent onChange={setDate} value={date} />
+            </div>
+            {/* <div className='content'>
                <label>Text input</label>
                <DateInput
                   onChange={setDate}
                   placeholder='Enter date'
                   value={date}
                />
-            </div>
+            </div> */}
             <div className='content'>
                <label>Text input</label>
                <TextInput

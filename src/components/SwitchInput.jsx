@@ -10,12 +10,7 @@ const StyledComponent = styled.div`
    width: 48px;
    position: relative;
    & input {
-      height: 0;
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 0;
-      visibility: hidden;
+      display: none;
       &:checked {
          & + label {
             background-color: #3a79f3;
