@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import CreatableSelect from './components/CreatableSelect';
 import CreditCardInput from './components/CreditCardInput';
 // import Editor from './components/Editor';
+import Calendar from './components/Calendar/Calendar';
 import DateComponent from './components/Date';
 import MultiSelect from './components/MultiSelect';
 import OTPInput from './components/OTPInput';
@@ -151,6 +152,7 @@ const App = () => {
                </a>
             </p>
          </StyledHeader>
+         <Calendar />
          <StyledInputContent>
             <h2 className='sub-title'>Inputs</h2>
             <div className='content'>
