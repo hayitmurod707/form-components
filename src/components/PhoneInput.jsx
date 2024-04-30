@@ -27,9 +27,9 @@ const PhoneInput = forwardRef(
       <ReactInputMask
          data-error={isError}
          disabled={isDisabled}
-         formatChars={{ b: '[0-9]' }}
+         formatChars={{ a: '[0-9]' }}
          inputMode='numeric'
-         mask='+998 (bb) bbb bb bb'
+         mask='+998 (aa) aaa aa aa'
          maskChar=''
          onFocus={onFocus}
          placeholder={placeholder}

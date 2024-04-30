@@ -27,12 +27,13 @@ const CreditCardInput = forwardRef(
       <ReactInputMask
          data-error={isError}
          disabled={isDisabled}
-         formatChars={{ b: '[0-9]' }}
+         formatChars={{ a: '[0-9]' }}
          inputMode='numeric'
-         mask='bbbb bbbb bbbb bbbb'
+         mask='aaaa aaaa aaaa aaaa'
          maskChar=''
          onFocus={onFocus}
          placeholder={placeholder}
+         ref={ref}
          type='text'
          value={value}
          onChange={e => {

@@ -27,6 +27,7 @@ const TextInput = forwardRef(
       <StyledInput
          data-error={isError}
          disabled={isDisabled}
+         inputMode='numeric'
          onFocus={onFocus}
          placeholder={placeholder}
          type='text'

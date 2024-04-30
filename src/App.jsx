@@ -4,7 +4,7 @@ import CreatableSelect from './components/CreatableSelect';
 import CreditCardInput from './components/CreditCardInput';
 // import Editor from './components/Editor';
 import Calendar from './components/Calendar/Calendar';
-import DateComponent from './components/Date';
+import DateInput from './components/DateInput';
 import MultiSelect from './components/MultiSelect';
 import OTPInput from './components/OTPInput';
 import PassportInput from './components/PassportInput';
@@ -120,7 +120,7 @@ const App = () => {
    const [OTP, setOTP] = useState('');
    // const [info, setInfo] = useState('');
    const [time, setTime] = useState('');
-   const [date, setDate] = useState(new Date());
+   const [date, setDate] = useState('');
    const [select, setSelect] = useState(null);
    const [search, setSearch] = useState('');
    const [loading, setLoading] = useState(false);
@@ -172,8 +172,8 @@ const App = () => {
                />
             </div>
             <div className='content'>
-               <label>Date</label>
-               <DateComponent onChange={setDate} value={date} />
+               <label>Date input</label>
+               <DateInput onChange={setDate} value={date} />
             </div>
             {/* <div className='content'>
                <label>Text input</label>
