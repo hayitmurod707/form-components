@@ -4,6 +4,7 @@ import CreatableSelect from './components/CreatableSelect';
 import CreditCardInput from './components/CreditCardInput';
 // import Editor from './components/Editor';
 import Calendar from './components/Calendar/Calendar';
+import CodeEditor from './components/CodeEditor';
 import DateInput from './components/DateInput';
 import MultiSelect from './components/MultiSelect';
 import OTPInput from './components/OTPInput';
@@ -153,6 +154,7 @@ const App = () => {
             </p>
          </StyledHeader>
          <Calendar />
+         <CodeEditor />
          <StyledInputContent>
             <h2 className='sub-title'>Inputs</h2>
             <div className='content'>
