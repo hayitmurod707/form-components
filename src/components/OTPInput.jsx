@@ -1,4 +1,5 @@
 import { bool, func, number, string } from 'prop-types';
+import { memo } from 'react';
 import ReactOtpInput from 'react-otp-input';
 import styled from 'styled-components';
 const StyledElement = styled.div`
@@ -23,50 +24,44 @@ const StyledInput = styled.input`
       border: 1.5px solid #5254f1;
    }
    &:disabled {
-      background-color: transparent;
+      border: 1.5px solid #e1e1e1;
       color: #717171;
    }
    & + input {
       margin: 0 0 0 8px;
    }
 `;
-const OTPInput = ({
-   autoFocus,
-   isDisabled,
-   isError,
-   length,
-   onChange,
-   onFocus,
-   placeholder,
-   value,
-}) => (
-   <StyledElement>
-      <ReactOtpInput
-         containerStyle='react-otp-input'
-         numInputs={length}
-         onChange={onChange}
-         placeholder={placeholder}
-         shouldAutoFocus={autoFocus}
-         value={value}
-         renderInput={props => (
-            <StyledInput
-               {...props}
-               data-error={isError}
-               disabled={isDisabled}
-               onFocus={onFocus}
-            />
-         )}
-      />
-   </StyledElement>
+const OTPInput = memo(
+   ({
+      autoFocus = true,
+      isDisabled = false,
+      isError = false,
+      length = 5,
+      onChange,
+      onFocus,
+      placeholder = '',
+      value = '',
+   }) => (
+      <StyledElement>
+         <ReactOtpInput
+            containerStyle='react-otp-input'
+            numInputs={length}
+            onChange={onChange}
+            placeholder={placeholder}
+            shouldAutoFocus={autoFocus}
+            value={value}
+            renderInput={props => (
+               <StyledInput
+                  {...props}
+                  data-error={isError}
+                  disabled={isDisabled}
+                  onFocus={onFocus}
+               />
+            )}
+         />
+      </StyledElement>
+   )
 );
-OTPInput.defaultProps = {
-   autoFocus: true,
-   isDisabled: false,
-   isError: false,
-   length: 5,
-   placeholder: '',
-   value: '',
-};
 OTPInput.propTypes = {
    autoFocus: bool,
    isDisabled: bool,

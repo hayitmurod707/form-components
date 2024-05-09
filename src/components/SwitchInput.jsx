@@ -1,5 +1,5 @@
 import { bool, func } from 'prop-types';
-import { useId } from 'react';
+import { forwardRef, memo, useId } from 'react';
 import styled from 'styled-components';
 const StyledComponent = styled.div`
    border-radius: 14px;
@@ -7,8 +7,8 @@ const StyledComponent = styled.div`
    display: inline-block;
    height: 28px;
    overflow: hidden;
-   width: 48px;
    position: relative;
+   width: 48px;
    & input {
       display: none;
       &:checked {
@@ -42,29 +42,29 @@ const StyledComponent = styled.div`
       }
    }
 `;
-const SwitchInput = ({ checked, onChange }) => {
-   const id = useId();
-   return (
-      <StyledComponent>
-         <input
-            checked={checked}
-            id={id}
-            type='checkbox'
-            onChange={e => {
-               onChange(e.target.checked);
-            }}
-         />
-         <label htmlFor={id}>
-            <span></span>
-         </label>
-      </StyledComponent>
-   );
-};
-SwitchInput.defaultProps = {
-   checked: false,
-};
+const SwitchInput = memo(
+   forwardRef(({ checked = false, isDisabled = false, onChange }, ref) => {
+      const id = useId();
+      return (
+         <StyledComponent>
+            <input
+               checked={checked}
+               disabled={isDisabled}
+               id={id}
+               onChange={e => onChange(e.target.checked)}
+               ref={ref}
+               type='checkbox'
+            />
+            <label htmlFor={id}>
+               <span></span>
+            </label>
+         </StyledComponent>
+      );
+   }, {})
+);
 SwitchInput.propTypes = {
    checked: bool,
+   isDisabled: bool,
    onChange: func,
 };
 export default SwitchInput;

@@ -1,5 +1,5 @@
 import { bool, func, string } from 'prop-types';
-import { forwardRef, useRef, useState } from 'react';
+import { forwardRef, memo, useRef, useState } from 'react';
 import styled from 'styled-components';
 const StyledComponent = styled.div`
    position: relative;
@@ -27,6 +27,7 @@ const StyledComponent = styled.div`
          border: 1.5px solid #5254f1;
       }
       &:disabled {
+         border: 1.5px solid #e1e1e1;
          color: #717171;
       }
       &::placeholder {
@@ -75,49 +76,49 @@ const Close = () => (
       <line x1='1' y1='1' x2='23' y2='23'></line>
    </svg>
 );
-const PasswordInput = forwardRef(
-   (
-      { value, onChange, onFocus, placeholder, isDisabled, isError },
-      incomingRef
-   ) => {
-      const [type, setType] = useState(false);
-      const ref = useRef(null);
-      const currentRef = incomingRef ? incomingRef : ref;
-      return (
-         <StyledComponent>
-            <input
-               data-error={isError}
-               disabled={isDisabled}
-               onFocus={onFocus}
-               placeholder={placeholder}
-               ref={currentRef}
-               type={type ? 'text' : 'password'}
-               value={value}
-               onChange={e => {
-                  if (!isDisabled) {
-                     onChange(e.target.value);
-                  }
-               }}
-            />
-            <div
-               className='toggle'
-               onClick={() => {
-                  setType(!type);
-                  currentRef.current.focus();
-               }}
-            >
-               {type ? <Close /> : <Open />}
-            </div>
-         </StyledComponent>
-      );
-   }
+const PasswordInput = memo(
+   forwardRef(
+      (
+         {
+            isDisabled = false,
+            isError = false,
+            onChange,
+            onFocus,
+            placeholder = '',
+            value = '',
+         },
+         innerRef
+      ) => {
+         const [type, setType] = useState(false);
+         const ref = useRef(null);
+         const currentRef = innerRef ? innerRef : ref;
+         return (
+            <StyledComponent>
+               <input
+                  data-error={isError}
+                  disabled={isDisabled}
+                  onChange={e => onChange(e.target.value)}
+                  onFocus={onFocus}
+                  placeholder={placeholder}
+                  ref={currentRef}
+                  type={type ? 'text' : 'password'}
+                  value={value}
+               />
+               <div
+                  className='toggle'
+                  onClick={() => {
+                     setType(!type);
+                     currentRef.current.focus();
+                  }}
+               >
+                  {type ? <Close /> : <Open />}
+               </div>
+            </StyledComponent>
+         );
+      },
+      {}
+   )
 );
-PasswordInput.defaultProps = {
-   isDisabled: false,
-   isError: false,
-   placeholder: '',
-   value: '',
-};
 PasswordInput.propTypes = {
    isDisabled: bool,
    isError: bool,

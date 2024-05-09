@@ -1,5 +1,6 @@
 import { bool, func, string } from 'prop-types';
 import { forwardRef, memo } from 'react';
+import ReactInputMask from 'react-input-mask';
 import styled from 'styled-components';
 const StyledInput = styled.input`
    background-color: transparent;
@@ -22,7 +23,7 @@ const StyledInput = styled.input`
       color: #717171;
    }
 `;
-const TextInput = memo(
+const PINFLInput = memo(
    forwardRef(
       (
          {
@@ -35,21 +36,29 @@ const TextInput = memo(
          },
          ref
       ) => (
-         <StyledInput
+         <ReactInputMask
             data-error={isError}
             disabled={isDisabled}
-            onChange={e => onChange(e.target.value)}
+            formatChars={{ a: '[0-9]' }}
+            inputMode='numeric'
+            mask='aaaaaaaaaaaaaa'
+            maskChar=''
+            onChange={e => onChange(e.target.value.replace(/ /g, ''))}
             onFocus={onFocus}
             placeholder={placeholder}
             ref={ref}
             type='text'
             value={value}
-         />
+         >
+            {props => (
+               <StyledInput {...props} disabled={isDisabled} ref={ref} />
+            )}
+         </ReactInputMask>
       ),
       {}
    )
 );
-TextInput.propTypes = {
+PINFLInput.propTypes = {
    isDisabled: bool,
    isError: bool,
    onChange: func.isRequired,
@@ -57,4 +66,4 @@ TextInput.propTypes = {
    placeholder: string,
    value: string.isRequired,
 };
-export default TextInput;
+export default PINFLInput;

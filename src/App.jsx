@@ -4,10 +4,11 @@ import CreatableSelect from './components/CreatableSelect';
 import CreditCardInput from './components/CreditCardInput';
 // import Editor from './components/Editor';
 import Calendar from './components/Calendar/Calendar';
-import CodeEditor from './components/CodeEditor';
+// import CodeEditor from './components/CodeEditor';
 import DateInput from './components/DateInput';
 import MultiSelect from './components/MultiSelect';
 import OTPInput from './components/OTPInput';
+import PINFLInput from './components/PINFLInput';
 import PassportInput from './components/PassportInput';
 import PasswordInput from './components/PasswordInput';
 import PhoneInput from './components/PhoneInput';
@@ -114,6 +115,7 @@ const StyledOTPContent = styled.div`
 const App = () => {
    const [passport, setPassport] = useState('');
    const [password, setPassword] = useState('');
+   const [pinfl, setPinfl] = useState('');
    const [phone, setPhone] = useState('');
    const [creditCard, setCreditCard] = useState('');
    const [text, setText] = useState('');
@@ -154,9 +156,45 @@ const App = () => {
             </p>
          </StyledHeader>
          <Calendar />
-         <CodeEditor />
+         {/* <CodeEditor /> */}
          <StyledInputContent>
             <h2 className='sub-title'>Inputs</h2>
+            <div className='content'>
+               <label>Text input</label>
+               <TextInput onChange={setText} value={text} />
+            </div>
+            <div className='content'>
+               <label>Phone input</label>
+               <PhoneInput onChange={setPhone} value={phone} />
+            </div>
+            <div className='content'>
+               <label>Credit card input</label>
+               <CreditCardInput onChange={setCreditCard} value={creditCard} />
+            </div>
+            <div className='content'>
+               <label>Passport input</label>
+               <PassportInput onChange={setPassport} value={passport} />
+            </div>
+            <div className='content'>
+               <label>Pinfl input</label>
+               <PINFLInput onChange={setPinfl} value={pinfl} />
+            </div>
+            <div className='content'>
+               <label>Password input</label>
+               <PasswordInput onChange={setPassword} value={password} />
+            </div>
+            <div className='content'>
+               <label>Date input</label>
+               <DateInput onChange={setDate} value={date} />
+            </div>
+            <div className='content'>
+               <label>Time input</label>
+               <TimeInput onChange={setTime} value={time} />
+            </div>
+            <div className='content'>
+               <label>Textarea</label>
+               <Textarea onChange={setComment} value={comment} />
+            </div>
             <div className='content'>
                <label>Multi Select</label>
                <MultiSelect
@@ -171,66 +209,6 @@ const App = () => {
                   ]}
                   onChange={setValue}
                   value={value}
-               />
-            </div>
-            <div className='content'>
-               <label>Date input</label>
-               <DateInput onChange={setDate} value={date} />
-            </div>
-            {/* <div className='content'>
-               <label>Text input</label>
-               <DateInput
-                  onChange={setDate}
-                  placeholder='Enter date'
-                  value={date}
-               />
-            </div> */}
-            <div className='content'>
-               <label>Text input</label>
-               <TextInput
-                  onChange={setText}
-                  placeholder='Enter some text'
-                  value={text}
-               />
-            </div>
-            <div className='content'>
-               <label>Passport input</label>
-               <PassportInput
-                  onChange={setPassport}
-                  placeholder='Enter passport serial number'
-                  value={passport}
-               />
-            </div>
-            <div className='content'>
-               <label>Password input</label>
-               <PasswordInput
-                  onChange={setPassword}
-                  placeholder='Enter strong password'
-                  value={password}
-               />
-            </div>
-            <div className='content'>
-               <label>Phone input</label>
-               <PhoneInput
-                  onChange={setPhone}
-                  placeholder='Enter phone number'
-                  value={phone}
-               />
-            </div>
-            <div className='content'>
-               <label>Credit card input</label>
-               <CreditCardInput
-                  onChange={setCreditCard}
-                  placeholder='Enter credit card number'
-                  value={creditCard}
-               />
-            </div>
-            <div className='content'>
-               <label>Time input</label>
-               <TimeInput
-                  onChange={setTime}
-                  placeholder='Enter time'
-                  value={time}
                />
             </div>
             <div className='content'>
@@ -296,7 +274,11 @@ const App = () => {
             </div>
             <div className='content'>
                <label>Switch input</label>
-               <SwitchInput onChange={setChecked} checked={checked} />
+               <SwitchInput
+                  isDisabled
+                  onChange={setChecked}
+                  checked={checked}
+               />
             </div>
             <div className='content'>
                <label>ReactSlider</label>
@@ -314,19 +296,11 @@ const App = () => {
                <label>ReactInputRange</label>
                <ReactInputRange onChange={setVal} value={val} />
             </div>
-            <div className='content'>
-               <label>Textarea</label>
-               <Textarea
-                  onChange={setComment}
-                  placeholder='Enter comment'
-                  value={comment}
-               />
-            </div>
          </StyledInputContent>
          <StyledOTPContent>
             <h2 className='sub-title'>OTP input</h2>
             <div className='content'>
-               <OTPInput value={OTP} autoFocus={false} onChange={setOTP} />
+               <OTPInput autoFocus={false} onChange={setOTP} value={OTP} />
             </div>
          </StyledOTPContent>
          {/* <StyledEditorContent>
