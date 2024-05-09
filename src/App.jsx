@@ -274,11 +274,7 @@ const App = () => {
             </div>
             <div className='content'>
                <label>Switch input</label>
-               <SwitchInput
-                  isDisabled
-                  onChange={setChecked}
-                  checked={checked}
-               />
+               <SwitchInput onChange={setChecked} checked={checked} />
             </div>
             <div className='content'>
                <label>ReactSlider</label>
