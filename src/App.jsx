@@ -155,7 +155,6 @@ const App = () => {
                </a>
             </p>
          </StyledHeader>
-         <Calendar />
          {/* <CodeEditor /> */}
          <StyledInputContent>
             <h2 className='sub-title'>Inputs</h2>
@@ -299,6 +298,7 @@ const App = () => {
                <OTPInput autoFocus={false} onChange={setOTP} value={OTP} />
             </div>
          </StyledOTPContent>
+         <Calendar />
          {/* <StyledEditorContent>
             <h2 className='sub-title'>Editor</h2>
             <div className='content'>
