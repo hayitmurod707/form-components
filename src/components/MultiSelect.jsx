@@ -225,18 +225,28 @@ const defaultOptions = {
       }),
    },
 };
-const MultipleSelect = props => <ReactSelect {...defaultOptions} {...props} />;
-MultipleSelect.defaultProps = {
-   isDisabled: false,
-   noOptionsMessage: () => 'No options',
-   options: [],
-   placeholder: 'Select options',
-   value: [],
-};
+const MultipleSelect = ({
+   isDisabled = false,
+   noOptionsMessage = () => 'No options',
+   options = [],
+   placeholder = '',
+   value = [],
+   ...props
+}) => (
+   <ReactSelect
+      {...defaultOptions}
+      {...props}
+      isDisabled={isDisabled}
+      noOptionsMessage={noOptionsMessage}
+      options={options}
+      placeholder={placeholder}
+      value={value}
+   />
+);
 MultipleSelect.propTypes = {
    isDisabled: bool,
    noOptionsMessage: func,
-   onChange: func.isRequired,
+   onChange: func,
    options: array,
    placeholder: string,
    value: array,

@@ -399,9 +399,9 @@ ReactMonacoEditor.defaultProps = {
 };
 ReactMonacoEditor.propTypes = {
    isDisabled: bool,
-   onChange: func.isRequired,
+   onChange: func,
    onSubmit: func,
    value: string,
-   setLanguage: func.isRequired,
+   setLanguage: func,
 };
 export default ReactMonacoEditor;

@@ -428,12 +428,12 @@ const EventWrapper = ({ children, event }) => (
 );
 const Day = ({ label }) => <StyledDay>{label}</StyledDay>;
 const Calendar = ({
-   date,
-   events,
-   loading,
-   onNavigate,
-   EventComponent,
    CreateEventComponent,
+   EventComponent,
+   date = new Date(),
+   events = [],
+   loading = false,
+   onNavigate,
 }) => {
    const ref = useRef(null);
    const [view, setView] = useState('month');
@@ -525,13 +525,6 @@ const Calendar = ({
          <Styles />
       </Fragment>
    );
-};
-Calendar.defaultProps = {
-   CreateEventComponent: () => null,
-   EventComponent: () => null,
-   date: new Date(),
-   events: [],
-   loading: false,
 };
 Calendar.propTypes = {
    CreateEventComponent: func,

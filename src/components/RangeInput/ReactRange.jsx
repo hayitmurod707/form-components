@@ -53,53 +53,49 @@ const StyledThumb = styled.div`
       }
    }
 `;
-const defaultOptions = {
-   renderThumb: ({ props, value, isDragged }) => (
-      <StyledThumb {...props}>
-         {isDragged && (
-            <div className='value'>
-               <div>{value}</div>
-            </div>
-         )}
-      </StyledThumb>
-   ),
-   renderTrack: ({ props, children }) => {
-      const values = children.map(child => child?.props['aria-valuenow']);
-      const colors =
-         values.length === 1
-            ? ['#3a79f3', '#f6f6f6']
-            : [
-                 '#f6f6f6',
-                 ...[...Array(values.length - 1)].fill('#3a79f3'),
-                 '#f6f6f6',
-              ];
-      const background = getTrackBackground({
-         colors,
-         max: 100,
-         min: 0,
-         values,
-      });
-      return (
-         <StyledTrack>
-            <div
-               {...props}
-               className='react-range-track'
-               style={{ background }}
-            >
-               {children}
-            </div>
-         </StyledTrack>
-      );
-   },
-};
-const ReactRange = ({ value, ...props }) => (
-   <Range {...defaultOptions} {...props} values={value} />
+const renderThumb = ({ props, value, isDragged }) => (
+   <StyledThumb {...props}>
+      {isDragged && (
+         <div className='value'>
+            <div>{value}</div>
+         </div>
+      )}
+   </StyledThumb>
 );
-ReactRange.defaultProps = {
-   value: [0, 100],
+const renderTrack = ({ props, children }) => {
+   const values = children.map(child => child?.props['aria-valuenow']);
+   const colors =
+      values.length === 1
+         ? ['#3a79f3', '#f6f6f6']
+         : [
+              '#f6f6f6',
+              ...[...Array(values.length - 1)].fill('#3a79f3'),
+              '#f6f6f6',
+           ];
+   const background = getTrackBackground({
+      colors,
+      max: 100,
+      min: 0,
+      values,
+   });
+   return (
+      <StyledTrack>
+         <div {...props} className='react-range-track' style={{ background }}>
+            {children}
+         </div>
+      </StyledTrack>
+   );
 };
+const ReactRange = ({ onChange, value = [0, 100] }) => (
+   <Range
+      onChange={onChange}
+      renderThumb={renderThumb}
+      renderTrack={renderTrack}
+      values={value}
+   />
+);
 ReactRange.propTypes = {
-   onChange: func.isRequired,
-   value: array.isRequired,
+   onChange: func,
+   value: array,
 };
 export default ReactRange;

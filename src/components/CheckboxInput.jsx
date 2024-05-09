@@ -47,26 +47,21 @@ const StyledComponent = styled.div`
       }
    }
 `;
-const CheckboxInput = ({ checked, onChange }) => {
+const CheckboxInput = ({ checked = false, onChange }) => {
    const id = useId();
    return (
       <StyledComponent>
          <input
             checked={checked}
             id={id}
+            onChange={e => onChange(e.target.checked)}
             type='checkbox'
-            onChange={e => {
-               onChange(e.target.checked);
-            }}
          />
          <label htmlFor={id}>
             <span></span>
          </label>
       </StyledComponent>
    );
-};
-CheckboxInput.defaultProps = {
-   checked: false,
 };
 CheckboxInput.propTypes = {
    checked: bool,

@@ -1,4 +1,4 @@
-import { array, func } from 'prop-types';
+import { array, func, number } from 'prop-types';
 import RangeSlider from 'react-slider';
 import styled from 'styled-components';
 const StyledElement = styled.div`
@@ -72,37 +72,44 @@ const StyledTrack = styled.div`
       background-color: #f6f6f6;
    }
 `;
-const defaultOptions = {
-   defaultValue: [0, 100],
-   minDistance: 1,
-   renderThumb: (props, { valueNow }) => (
-      <StyledThumb {...props} className={null}>
-         <div className='value'>
-            <div>{valueNow}</div>
-         </div>
-      </StyledThumb>
-   ),
-   renderTrack: (props, { index, value }) => (
-      <StyledTrack
-         {...props}
-         className={null}
-         index={index}
-         data-active={
-            index === 0 || index === value.length ? 'inactive' : 'active'
-         }
-      />
-   ),
-};
-const ReactSlider = props => (
+const renderThumb = (props, { valueNow }) => (
+   <StyledThumb {...props} className={null}>
+      <div className='value'>
+         <div>{valueNow}</div>
+      </div>
+   </StyledThumb>
+);
+const renderTrack = (props, { index, value }) => (
+   <StyledTrack
+      {...props}
+      className={null}
+      index={index}
+      data-active={
+         index === 0 || index === value.length ? 'inactive' : 'active'
+      }
+   />
+);
+const ReactSlider = ({
+   defaultValue = [0, 100],
+   minDistance = 1,
+   onChange,
+   value = [0, 100],
+}) => (
    <StyledElement>
-      <RangeSlider {...defaultOptions} {...props} />
+      <RangeSlider
+         defaultValue={defaultValue}
+         minDistance={minDistance}
+         onChange={onChange}
+         renderThumb={renderThumb}
+         renderTrack={renderTrack}
+         value={value}
+      />
    </StyledElement>
 );
-ReactSlider.defaultProps = {
-   value: [0, 100],
-};
 ReactSlider.propTypes = {
-   onChange: func.isRequired,
-   value: array.isRequired,
+   defaultValue: array,
+   minDistance: number,
+   onChange: func,
+   value: array,
 };
 export default ReactSlider;

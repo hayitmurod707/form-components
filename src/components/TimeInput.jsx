@@ -67,9 +67,9 @@ const TextInput = memo(
 TextInput.propTypes = {
    isDisabled: bool,
    isError: bool,
-   onChange: func.isRequired,
+   onChange: func,
    onFocus: func,
    placeholder: string,
-   value: string.isRequired,
+   value: string,
 };
 export default TextInput;

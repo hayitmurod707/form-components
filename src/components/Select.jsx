@@ -212,9 +212,9 @@ Select.propTypes = {
    isDisabled: bool,
    isError: bool,
    noOptionsMessage: any,
-   onChange: func.isRequired,
+   onChange: func,
    onFocus: func,
-   options: array.isRequired,
+   options: array,
    placeholder: string,
    value: any,
 };

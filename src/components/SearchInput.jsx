@@ -365,9 +365,9 @@ SearchInput.propTypes = {
    isError: bool,
    isLoading: bool,
    noOptionsMessage: any,
-   onChange: func.isRequired,
+   onChange: func,
    onFocus: func,
-   options: array.isRequired,
+   options: array,
    placeholder: string,
    value: any,
 };

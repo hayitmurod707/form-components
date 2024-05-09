@@ -139,7 +139,11 @@ const defaultOptions = {
       }),
    },
 };
-const CreatableSelect = ({ onChange, placeholder, value = [] }) => {
+const CreatableSelect = ({
+   onChange,
+   placeholder = 'Create option',
+   value = [],
+}) => {
    const [inputValue, setInputValue] = useState('');
    const onKeyDown = e => {
       if (inputValue && (e.key === 'Enter' || e.key === 'Tab')) {
@@ -169,12 +173,8 @@ const CreatableSelect = ({ onChange, placeholder, value = [] }) => {
       />
    );
 };
-CreatableSelect.defaultProps = {
-   placeholder: 'Create option',
-   value: [],
-};
 CreatableSelect.propTypes = {
-   onChange: func.isRequired,
+   onChange: func,
    placeholder: string,
    value: array,
 };

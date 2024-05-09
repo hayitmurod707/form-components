@@ -1098,7 +1098,7 @@ const en = {
 tinymce.addI18n('en', en);
 tinymce.addI18n('ru', ru);
 tinymce.addI18n('uz', uz);
-const Editor = ({ setValue, value, onFocus }) => (
+const Editor = ({ setValue, value = '', onFocus }) => (
    <StyledElement>
       <Tinymce
          init={{
@@ -1112,12 +1112,9 @@ const Editor = ({ setValue, value, onFocus }) => (
       />
    </StyledElement>
 );
-Editor.defaultProps = {
-   value: '',
-};
 Editor.propTypes = {
    onFocus: func,
-   setValue: func.isRequired,
+   setValue: func,
    value: string,
 };
 export default Editor;

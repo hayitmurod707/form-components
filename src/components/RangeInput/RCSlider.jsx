@@ -1,4 +1,4 @@
-import { array, func } from 'prop-types';
+import { array, bool, func } from 'prop-types';
 import RangeSlider from 'rc-slider';
 import styled from 'styled-components';
 const StyledElement = styled.div`
@@ -82,30 +82,37 @@ const StyledHandle = styled.div`
       }
    }
 `;
-const defaultOptions = {
-   allowCross: false,
-   pushable: true,
-   range: true,
-   handleRender: ({ props }, { value, dragging }) => (
-      <StyledHandle {...props} data-dragging={dragging}>
-         {dragging && (
-            <div className='value'>
-               <div>{value}</div>
-            </div>
-         )}
-      </StyledHandle>
-   ),
-};
-const RCSlider = props => (
+const RCSlider = ({
+   allowCross = false,
+   onChange,
+   pushable = true,
+   range = true,
+   value = [0, 100],
+}) => (
    <StyledElement>
-      <RangeSlider {...defaultOptions} {...props} />
+      <RangeSlider
+         allowCross={allowCross}
+         onChange={onChange}
+         pushable={pushable}
+         range={range}
+         value={value}
+         handleRender={({ props }, { value, dragging }) => (
+            <StyledHandle {...props} data-dragging={dragging}>
+               {dragging && (
+                  <div className='value'>
+                     <div>{value}</div>
+                  </div>
+               )}
+            </StyledHandle>
+         )}
+      />
    </StyledElement>
 );
-RCSlider.defaultProps = {
-   value: [0, 100],
-};
 RCSlider.propTypes = {
-   onChange: func.isRequired,
-   value: array.isRequired,
+   allowCross: bool,
+   onChange: func,
+   pushable: bool,
+   range: bool,
+   value: array,
 };
 export default RCSlider;

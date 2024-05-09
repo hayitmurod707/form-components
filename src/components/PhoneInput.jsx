@@ -65,18 +65,12 @@ const PhoneInput = memo(
       {}
    )
 );
-PhoneInput.defaultProps = {
-   isDisabled: false,
-   isError: false,
-   placeholder: '',
-   value: '',
-};
 PhoneInput.propTypes = {
    isDisabled: bool,
    isError: bool,
-   onChange: func.isRequired,
+   onChange: func,
    onFocus: func,
    placeholder: string,
-   value: string.isRequired,
+   value: string,
 };
 export default PhoneInput;

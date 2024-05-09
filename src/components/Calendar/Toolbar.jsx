@@ -275,7 +275,7 @@ ToolBar.defaultProps = {
 };
 ToolBar.propTypes = {
    label: string,
-   onView: func.isRequired,
+   onView: func,
    view: string,
 };
 export default ToolBar;

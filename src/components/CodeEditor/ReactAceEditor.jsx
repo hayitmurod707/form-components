@@ -342,9 +342,9 @@ const __fontSizes = [
 const ReactAceEditor = ({
    fontSize,
    fontSizes,
-   isDisabled,
-   language,
-   languages,
+   isDisabled = false,
+   language = 'javascript',
+   languages = [],
    onChange,
    onChangeFontSize,
    onChangeLanguage,
@@ -353,7 +353,7 @@ const ReactAceEditor = ({
    onSubmit,
    theme,
    themes,
-   value,
+   value = '',
 }) => {
    const newLanguages = __languages.filter(language =>
       languages.includes(language?.value)
@@ -424,12 +424,6 @@ const ReactAceEditor = ({
          </div>
       </StyledElement>
    );
-};
-ReactAceEditor.defaultProps = {
-   isDisabled: false,
-   languages: [],
-   value: '',
-   language: 'javascript',
 };
 ReactAceEditor.propTypes = {
    isDisabled: bool,

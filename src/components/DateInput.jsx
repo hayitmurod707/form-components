@@ -1,5 +1,5 @@
 import Input from 'cleave.js/react';
-import { bool, func, object, string } from 'prop-types';
+import { bool, func, string } from 'prop-types';
 import { forwardRef, memo } from 'react';
 import styled from 'styled-components';
 const StyledInput = styled.div`
@@ -101,9 +101,9 @@ const DateInput = memo(
 DateInput.propTypes = {
    isDisabled: bool,
    isError: bool,
-   onChange: func.isRequired,
+   onChange: func,
    onFocus: func,
    placeholder: string,
-   value: object.isRequired,
+   value: string,
 };
 export default DateInput;
