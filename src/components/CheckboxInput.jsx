@@ -1,70 +1,76 @@
-import { bool, func } from 'prop-types';
-import { useId } from 'react';
+import { bool, func, string } from 'prop-types';
+import { forwardRef, memo, useId } from 'react';
 import styled from 'styled-components';
-const StyledComponent = styled.div`
-   border-radius: 14px;
+const StyledInput = styled.input`
+   appearance: none;
+   background-color: transparent;
+   border-radius: 6px;
+   border: 2px solid #ff2e00;
    cursor: pointer;
-   display: inline-block;
-   height: 28px;
-   overflow: hidden;
-   width: 48px;
+   height: 24px;
+   margin: -2px 10px 0 0;
+   min-width: 24px;
+   opacity: 1;
+   padding: 0;
    position: relative;
-   & input {
-      height: 0;
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 0;
-      visibility: hidden;
-      &:checked {
-         & + label {
-            background-color: #3a79f3;
-            & span {
-               transform: translateX(100%);
-            }
-         }
+   width: 24px;
+   &:focus {
+      outline: none;
+   }
+   &:checked {
+      background-color: #ff2e00;
+      border: 2px solid #ff2e00;
+      &:before {
+         left: 2px;
+         top: 11px;
+         transform: rotate(44deg);
+         width: 8px;
+      }
+      &:after {
+         left: 5px;
+         top: 8px;
+         transform: rotate(-55deg);
+         width: 14px;
       }
    }
-   & label {
-      background-color: #d1d5db;
-      border-radius: 14px;
-      cursor: pointer;
-      display: block;
-      height: 100%;
-      padding: 4px;
-      transition: background-color 400ms ease;
-      width: 100%;
-      &:hover {
-         background-color: #b7bcc5;
-      }
-      & span {
-         background-color: #ffffff;
-         border-radius: 10px;
-         display: block;
-         height: 20px;
-         transition: transform 400ms ease, background-color 400ms ease;
-         width: 20px;
-      }
+   &:before {
+      background-color: var(--white);
+      content: '';
+      height: 2px;
+      position: absolute;
+   }
+   &:after {
+      background-color: var(--white);
+      content: '';
+      height: 2px;
+      position: absolute;
    }
 `;
-const CheckboxInput = ({ checked = false, onChange }) => {
-   const id = useId();
-   return (
-      <StyledComponent>
-         <input
-            checked={checked}
-            id={id}
-            onChange={e => onChange(e.target.checked)}
-            type='checkbox'
-         />
-         <label htmlFor={id}>
-            <span></span>
-         </label>
-      </StyledComponent>
-   );
-};
+const CheckboxInput = memo(
+   forwardRef(
+      (
+         { checked = false, id: innerId = '', isDisabled = false, onChange },
+         ref
+      ) => {
+         const id = useId();
+         return (
+            <StyledInput
+               checked={checked}
+               disabled={isDisabled}
+               id={innerId || id}
+               onChange={e => onChange(e.target.checked)}
+               ref={ref}
+               type='checkbox'
+            />
+         );
+      },
+      {}
+   )
+);
 CheckboxInput.propTypes = {
    checked: bool,
+   id: string,
+   isDisabled: bool,
    onChange: func,
 };
 export default CheckboxInput;
