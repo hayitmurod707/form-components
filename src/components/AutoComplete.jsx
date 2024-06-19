@@ -1,4 +1,5 @@
 import { any, array, bool, func, string } from 'prop-types';
+import { memo } from 'react';
 import ReactSelect, { components } from 'react-select';
 import styled, { keyframes } from 'styled-components';
 const animation1 = keyframes`
@@ -297,70 +298,73 @@ const styles = {
       width: '100%',
    }),
 };
-const SearchInput = ({
-   isError,
-   noOptionsMessage,
-   onChange,
-   value,
-   ...props
-}) => {
-   const NoOptionsMessage =
-      typeof noOptionsMessage === 'function'
-         ? noOptionsMessage
-         : () => "Ma'lumot topilmadi";
-   return (
-      <ReactSelect
-         {...defaultOptions}
-         {...props}
-         inputValue={typeof value === 'string' ? value : value?.label}
-         noOptionsMessage={NoOptionsMessage}
-         value={null}
-         onInputChange={(option, { action }) => {
-            if (action !== 'input-blur' && action !== 'menu-close') {
-               onChange(option);
-            }
-         }}
-         onChange={option => {
-            onChange(option);
-         }}
-         styles={{
-            ...styles,
-            control: (styles, { isFocused }) => ({
+const AutoComplete = memo(
+   ({
+      isDisabled = false,
+      isError = false,
+      isLoading = false,
+      noOptionsMessage = null,
+      onChange,
+      options = [],
+      placeholder = '',
+      setLoading,
+      value = null,
+      ...props
+   }) => {
+      const NoOptionsMessage =
+         typeof noOptionsMessage === 'function'
+            ? noOptionsMessage
+            : () => "Ma'lumot topilmadi";
+      const onInputChange = (option, { action }) => {
+         if (action !== 'input-blur' && action !== 'menu-close') {
+            const search =
+               typeof option?.label === 'string' ? option.label : value;
+            onChange(search);
+         }
+      };
+      return (
+         <ReactSelect
+            {...defaultOptions}
+            {...props}
+            inputValue={typeof value === 'string' ? value : value?.label}
+            isDisabled={isDisabled}
+            isLoading={isLoading}
+            noOptionsMessage={NoOptionsMessage}
+            onChange={onChange}
+            onInputChange={onInputChange}
+            options={options}
+            placeholder={placeholder}
+            value={null}
+            styles={{
                ...styles,
-               backgroundColor: '#ffffff',
-               border: `1.5px solid ${
-                  isError ? '#e41d32' : isFocused ? '#397af5' : '#e1e1e1'
-               }`,
-               borderRadius: 10,
-               boxShadow: 'none',
-               color: 'rgb(37, 42, 59)',
-               cursor: 'text',
-               height: 46,
-               minHeight: 46,
-               minWidth: 100,
-               outline: 'none',
-               padding: 0,
-               width: '100%',
-               ':hover': {
+               control: (styles, { isFocused }) => ({
+                  ...styles,
+                  backgroundColor: '#ffffff',
                   border: `1.5px solid ${
                      isError ? '#e41d32' : isFocused ? '#397af5' : '#e1e1e1'
                   }`,
-               },
-            }),
-         }}
-      />
-   );
-};
-SearchInput.defaultProps = {
-   isDisabled: false,
-   isError: false,
-   isLoading: false,
-   noOptionsMessage: null,
-   options: [],
-   placeholder: '',
-   value: null,
-};
-SearchInput.propTypes = {
+                  borderRadius: 10,
+                  boxShadow: 'none',
+                  color: 'rgb(37, 42, 59)',
+                  cursor: 'text',
+                  height: 46,
+                  minHeight: 46,
+                  minWidth: 100,
+                  outline: 'none',
+                  padding: 0,
+                  width: '100%',
+                  ':hover': {
+                     border: `1.5px solid ${
+                        isError ? '#e41d32' : isFocused ? '#397af5' : '#e1e1e1'
+                     }`,
+                  },
+               }),
+            }}
+         />
+      );
+   }
+);
+AutoComplete.propTypes = {
    isDisabled: bool,
    isError: bool,
    isLoading: bool,
@@ -369,6 +373,7 @@ SearchInput.propTypes = {
    onFocus: func,
    options: array,
    placeholder: string,
+   setLoading: func,
    value: any,
 };
-export default SearchInput;
+export default AutoComplete;

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import CreatableSelect from './components/CreatableSelect';
 import CreditCardInput from './components/CreditCardInput';
 // import Editor from './components/Editor';
+import AutoComplete from './components/AutoComplete';
 import Calendar from './components/Calendar/Calendar';
 import DateInput from './components/DateInput';
 import MultiSelect from './components/MultiSelect';
@@ -17,9 +18,9 @@ import {
    ReactRange,
    ReactSlider,
 } from './components/RangeInput';
-import SearchInput from './components/SearchInput';
 import Select from './components/Select';
 import SwitchInput from './components/SwitchInput';
+import Test from './components/Test';
 import TextInput from './components/TextInput';
 import Textarea from './components/Textarea';
 import TimeInput from './components/TimeInput';
@@ -131,14 +132,7 @@ const App = () => {
    const [range, setRange] = useState([20, 40, 60, 80]);
    const [val, setVal] = useState({ min: 30, max: 80 });
    const [value, setValue] = useState([]);
-   const onChange = value => {
-      const search = typeof value?.label === 'string' ? value.label : value;
-      setSearch(search);
-      setLoading(true);
-      setTimeout(() => {
-         setLoading(false);
-      }, 100);
-   };
+   const [picker, setPicker] = useState(new Date());
    return (
       <Fragment>
          <StyledHeader>
@@ -156,6 +150,10 @@ const App = () => {
          </StyledHeader>
          <StyledInputContent>
             <h2 className='sub-title'>Inputs</h2>
+            <div className='content'>
+               <label>Date input</label>
+               <Test value={picker} onChange={setPicker} />
+            </div>
             <div className='content'>
                <label>Text input</label>
                <TextInput onChange={setText} value={text} />
@@ -243,11 +241,12 @@ const App = () => {
                />
             </div>
             <div className='content'>
-               <label>Search input</label>
-               <SearchInput
+               <label>AutoComplete</label>
+               <AutoComplete
                   isLoading={loading}
-                  onChange={onChange}
+                  onChange={setSearch}
                   placeholder='Search option'
+                  setLoading={setLoading}
                   value={search}
                   options={[
                      {
