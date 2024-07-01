@@ -20,7 +20,6 @@ import {
 } from './components/RangeInput';
 import Select from './components/Select';
 import SwitchInput from './components/SwitchInput';
-import Test from './components/Test';
 import TextInput from './components/TextInput';
 import Textarea from './components/Textarea';
 import TimeInput from './components/TimeInput';
@@ -132,7 +131,6 @@ const App = () => {
    const [range, setRange] = useState([20, 40, 60, 80]);
    const [val, setVal] = useState({ min: 30, max: 80 });
    const [value, setValue] = useState([]);
-   const [picker, setPicker] = useState(new Date());
    return (
       <Fragment>
          <StyledHeader>
@@ -152,7 +150,7 @@ const App = () => {
             <h2 className='sub-title'>Inputs</h2>
             <div className='content'>
                <label>Date input</label>
-               <Test value={picker} onChange={setPicker} />
+               <DateInput value={date} onChange={setDate} />
             </div>
             <div className='content'>
                <label>Text input</label>
@@ -177,10 +175,6 @@ const App = () => {
             <div className='content'>
                <label>Password input</label>
                <PasswordInput onChange={setPassword} value={password} />
-            </div>
-            <div className='content'>
-               <label>Date input</label>
-               <DateInput onChange={setDate} value={date} />
             </div>
             <div className='content'>
                <label>Time input</label>
