@@ -19,6 +19,7 @@ import {
    ReactSlider,
 } from './components/RangeInput';
 import Select from './components/Select';
+import StarsInput from './components/StarsInput';
 import SwitchInput from './components/SwitchInput';
 import TextInput from './components/TextInput';
 import Textarea from './components/Textarea';
@@ -125,6 +126,7 @@ const App = () => {
    const [date, setDate] = useState('');
    const [select, setSelect] = useState(null);
    const [search, setSearch] = useState('');
+   const [rating, setRating] = useState(0);
    const [loading, setLoading] = useState(false);
    const [checked, setChecked] = useState(false);
    const [creatableOptions, setCreatableOptions] = useState([]);
@@ -148,6 +150,10 @@ const App = () => {
          </StyledHeader>
          <StyledInputContent>
             <h2 className='sub-title'>Inputs</h2>
+            <div className='content'>
+               <label>Stars input</label>
+               <StarsInput value={rating} onChange={setRating} />
+            </div>
             <div className='content'>
                <label>Date input</label>
                <DateInput value={date} onChange={setDate} />
