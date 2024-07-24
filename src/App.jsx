@@ -5,6 +5,7 @@ import CreditCardInput from './components/CreditCardInput';
 // import Editor from './components/Editor';
 import AutoComplete from './components/AutoComplete';
 import Calendar from './components/Calendar/Calendar';
+import CurrencyInput from './components/CurrencyInput';
 import DateInput from './components/DateInput';
 import MultiSelect from './components/MultiSelect';
 import OTPInput from './components/OTPInput';
@@ -133,6 +134,7 @@ const App = () => {
    const [range, setRange] = useState([20, 40, 60, 80]);
    const [val, setVal] = useState({ min: 30, max: 80 });
    const [value, setValue] = useState([]);
+   const [currency, setCurrency] = useState('');
    return (
       <Fragment>
          <StyledHeader>
@@ -153,6 +155,10 @@ const App = () => {
             <div className='content'>
                <label>Stars input</label>
                <StarsInput value={rating} onChange={setRating} />
+            </div>
+            <div className='content'>
+               <label>Currency input</label>
+               <CurrencyInput value={currency} onChange={setCurrency} />
             </div>
             <div className='content'>
                <label>Date input</label>

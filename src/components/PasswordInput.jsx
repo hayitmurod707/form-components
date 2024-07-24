@@ -9,7 +9,7 @@ const StyledComponent = styled.div`
       border: 1.5px solid #e1e1e1;
       font-size: 17px;
       font-weight: 500;
-      height: 46px;
+      height: 48px;
       outline: none;
       padding-left: 17px;
       padding-right: 44px;

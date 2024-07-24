@@ -10,7 +10,7 @@ const StyledInput = styled(CleaveInput)`
    border: none;
    font-size: 17px;
    font-weight: 500;
-   height: 46px;
+   height: 45px;
    outline: none;
    padding: 0;
 `;
@@ -21,7 +21,7 @@ const StyledControl = styled.div`
    & .inner-content {
       height: 100%;
       padding: 0 0 0 16px;
-      width: calc(100% - 44px);
+      width: calc(100% - 45px);
       & input {
          display: flex;
          max-width: 100% !important;
@@ -32,10 +32,10 @@ const StyledControl = styled.div`
    & .indicator-content {
       align-items: center;
       display: flex;
-      height: 44px;
+      height: 45px;
       justify-content: flex-end;
       padding: 0 12px;
-      width: 44px;
+      width: 45px;
       & .dropdown-button {
          align-items: center;
          background-color: transparent;
@@ -256,13 +256,13 @@ const PrevIcon = () => (
 const styles = {
    container: styles => ({
       ...styles,
-      height: 46,
+      height: 48,
       width: '100%',
    }),
    valueContainer: styles => ({
       ...styles,
       display: 'flex',
-      height: 44,
+      height: 45,
       padding: 0,
    }),
    placeholder: styles => ({
@@ -427,8 +427,8 @@ const DateInput = memo(
                   boxShadow: 'none',
                   color: 'rgb(37, 42, 59)',
                   cursor: 'text',
-                  height: 46,
-                  minHeight: 46,
+                  height: 48,
+                  minHeight: 48,
                   minWidth: 100,
                   outline: 'none',
                   padding: 0,

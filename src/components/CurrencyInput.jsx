@@ -1,8 +1,8 @@
-import Input from 'cleave.js/react';
+import CleaveInput from 'cleave.js/react';
 import { bool, func, string } from 'prop-types';
 import { forwardRef, memo } from 'react';
 import styled from 'styled-components';
-const StyledInput = styled(Input)`
+const StyledInput = styled(CleaveInput)`
    background-color: transparent;
    border-radius: 10px;
    border: 1.5px solid #e1e1e1;
@@ -10,20 +10,21 @@ const StyledInput = styled(Input)`
    font-weight: 500;
    height: 48px;
    outline: none;
-   padding-left: 17px;
+   padding-left: 15px;
    width: 100%;
    &[data-error='true'] {
-      border: 1.5px solid #ff5749;
-   }
-   &:focus {
-      border: 1.5px solid #5254f1;
+      border-color: #e41d32;
    }
    &:disabled {
-      border: 1.5px solid #e1e1e1;
+      background-color: #f4f4f4;
       color: #717171;
+      cursor: default;
+   }
+   &:focus {
+      border: 1.5px solid #3a79f3;
    }
 `;
-const TextInput = memo(
+const CurrencyInput = memo(
    forwardRef(
       (
          {
@@ -40,15 +41,11 @@ const TextInput = memo(
             data-error={isError}
             disabled={isDisabled}
             inputMode='numeric'
-            onChange={e => onChange(e.target.value)}
+            onChange={e => onChange(e.target.value.replace(/ /g, ''))}
             onFocus={onFocus}
             placeholder={placeholder}
             type='text'
             value={value}
-            options={{
-               time: true,
-               timePattern: ['h', 'm', 's'],
-            }}
             htmlRef={inputNode => {
                if (!ref) {
                   return;
@@ -59,12 +56,17 @@ const TextInput = memo(
                   ref.current = inputNode;
                }
             }}
+            options={{
+               delimiter: ' ',
+               numeral: true,
+               numeralThousandsGroupStyle: 'thousand',
+            }}
          />
       ),
       {}
    )
 );
-TextInput.propTypes = {
+CurrencyInput.propTypes = {
    isDisabled: bool,
    isError: bool,
    onChange: func,
@@ -72,4 +74,4 @@ TextInput.propTypes = {
    placeholder: string,
    value: string,
 };
-export default TextInput;
+export default CurrencyInput;
