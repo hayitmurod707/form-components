@@ -32,6 +32,7 @@
     "reactjs-popup": "^2.0.6",
     "styled-components": "^6.1.8",
     "tinymce": "5",
+    "use-debounce": "^10.0.3",
     "web-vitals": "^2.1.0"
   },
   "scripts": {

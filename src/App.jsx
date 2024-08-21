@@ -5,7 +5,6 @@ import CreditCardInput from './components/CreditCardInput';
 // import Editor from './components/Editor';
 import AutoComplete from './components/AutoComplete';
 import Calendar from './components/Calendar/Calendar';
-import CurrencyInput from './components/CurrencyInput';
 import DateInput from './components/DateInput';
 import MultiSelect from './components/MultiSelect';
 import OTPInput from './components/OTPInput';
@@ -20,6 +19,7 @@ import {
    ReactSlider,
 } from './components/RangeInput';
 import Select from './components/Select';
+import SliderInput from './components/SliderInput';
 import StarsInput from './components/StarsInput';
 import SwitchInput from './components/SwitchInput';
 import TextInput from './components/TextInput';
@@ -157,8 +157,13 @@ const App = () => {
                <StarsInput value={rating} onChange={setRating} />
             </div>
             <div className='content'>
-               <label>Currency input</label>
-               <CurrencyInput value={currency} onChange={setCurrency} />
+               <label>Slider input</label>
+               <SliderInput
+                  max={100}
+                  min={0}
+                  onChange={setCurrency}
+                  value={currency}
+               />
             </div>
             <div className='content'>
                <label>Date input</label>

@@ -1,8 +1,6 @@
 import { any, bool, func, string } from 'prop-types';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import ReactSelect, { components } from 'react-select';
-import { telemarketingAPI } from 'services/api';
 import styled, { keyframes } from 'styled-components';
 import { useDebouncedCallback } from 'use-debounce';
 const animation1 = keyframes`
@@ -299,16 +297,15 @@ const AutoComplete = ({
    value = null,
    ...props
 }) => {
-   const { t } = useTranslation('components');
    const [loading, setLoading] = useState(false);
    const [options, setOptions] = useState([]);
    const debouncedSearch = useDebouncedCallback(async search => {
       await setLoading(true);
-      const url = getUrl(search);
-      telemarketingAPI({ url })
-         .then(response => setOptions(getResponse(response)))
-         .catch(() => setOptions([]))
-         .finally(() => setLoading(false));
+      // const url = getUrl(search);
+      // Request({ url })
+      //    .then(response => setOptions(getResponse(response)))
+      //    .catch(() => setOptions([]))
+      //    .finally(() => setLoading(false));
    }, 300);
    const onInputChange = (option, { action }) => {
       if (action !== 'input-blur' && action !== 'menu-close') {
@@ -318,7 +315,7 @@ const AutoComplete = ({
    const NoOptionsMessage =
       typeof noOptionsMessage === 'function'
          ? noOptionsMessage
-         : () => t('not-found');
+         : () => 'No data available';
    useEffect(() => {
       const search = typeof value === 'string' ? value : value?.label;
       debouncedSearch(search);
