@@ -1,4 +1,4 @@
-import { func, number, object } from 'prop-types';
+import { bool, func, number, object } from 'prop-types';
 import Slider from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
 import styled from 'styled-components';
@@ -14,7 +14,7 @@ const StyledElement = styled.div`
          height: 5px;
          transition: none;
          & .input-range__track--active {
-            background-color: #3a79f3;
+            background-color: #5254f1;
             height: 5px;
             transition: none;
          }
@@ -37,26 +37,29 @@ const StyledElement = styled.div`
    }
 `;
 const ReactInputRange = ({
-   formatLabel = value => value,
-   maxValue = 100,
-   minValue = 0,
+   isDisabled = false,
+   max = 100,
+   min = 0,
+   onChange,
    step = 1,
-   value = { min: 0, max: 100 },
-   ...props
+   value = [0, 100],
 }) => (
    <StyledElement>
       <Slider
-         {...props}
-         formatLabel={formatLabel}
-         maxValue={maxValue}
-         minValue={minValue}
+         disabled={isDisabled}
+         formatLabel={value => value}
+         maxValue={max}
+         minValue={min}
          step={step}
-         value={value}
+         value={{ min: value[0], max: value[1] }}
+         onChange={value => {
+            onChange([value.min, value.max]);
+         }}
       />
    </StyledElement>
 );
 ReactInputRange.propTypes = {
-   formatLabel: func,
+   isDisabled: bool,
    maxValue: number,
    minValue: number,
    onChange: func,

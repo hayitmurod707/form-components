@@ -1,4 +1,4 @@
-import { array, func } from 'prop-types';
+import { array, bool, func, number } from 'prop-types';
 import { Range, getTrackBackground } from 'react-range';
 import styled from 'styled-components';
 const StyledTrack = styled.div`
@@ -30,7 +30,7 @@ const StyledThumb = styled.div`
       position: absolute;
       width: 24px;
       &:before {
-         background-color: #3a79f3;
+         background-color: #5254f1;
          border-radius: 0 0 2px 0;
          bottom: -6px;
          content: '';
@@ -42,7 +42,7 @@ const StyledThumb = styled.div`
       }
       & div {
          align-items: center;
-         background-color: #3a79f3;
+         background-color: #5254f1;
          border-radius: 8px;
          color: #ffffff;
          display: flex;
@@ -66,10 +66,10 @@ const renderTrack = ({ props, children }) => {
    const values = children.map(child => child?.props['aria-valuenow']);
    const colors =
       values.length === 1
-         ? ['#3a79f3', '#f6f6f6']
+         ? ['#5254f1', '#f6f6f6']
          : [
               '#f6f6f6',
-              ...[...Array(values.length - 1)].fill('#3a79f3'),
+              ...[...Array(values.length - 1)].fill('#5254f1'),
               '#f6f6f6',
            ];
    const background = getTrackBackground({
@@ -86,16 +86,31 @@ const renderTrack = ({ props, children }) => {
       </StyledTrack>
    );
 };
-const ReactRange = ({ onChange, value = [0, 100] }) => (
+const ReactRange = ({
+   isDisabled = false,
+   max = 100,
+   min = 0,
+   onChange,
+   step = 1,
+   value = [0, 100],
+}) => (
    <Range
+      disabled={isDisabled}
+      max={max}
+      min={min}
       onChange={onChange}
       renderThumb={renderThumb}
       renderTrack={renderTrack}
+      step={step}
       values={value}
    />
 );
 ReactRange.propTypes = {
+   isDisabled: bool,
+   max: number,
+   min: number,
    onChange: func,
+   step: number,
    value: array,
 };
 export default ReactRange;

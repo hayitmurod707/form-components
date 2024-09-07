@@ -1,4 +1,4 @@
-import { array, bool, func } from 'prop-types';
+import { array, bool, func, number } from 'prop-types';
 import RangeSlider from 'rc-slider';
 import styled from 'styled-components';
 const StyledElement = styled.div`
@@ -19,7 +19,7 @@ const StyledElement = styled.div`
          height: 5px;
       }
       & .rc-slider-track {
-         background-color: #3a79f3;
+         background-color: #5254f1;
          cursor: pointer;
          height: 5px;
          position: absolute;
@@ -58,7 +58,7 @@ const StyledHandle = styled.div`
       position: absolute;
       width: 24px;
       &:before {
-         background-color: #3a79f3;
+         background-color: #5254f1;
          border-radius: 0 0 2px 0;
          bottom: -6px;
          content: '';
@@ -70,7 +70,7 @@ const StyledHandle = styled.div`
       }
       & div {
          align-items: center;
-         background-color: #3a79f3;
+         background-color: #5254f1;
          border-radius: 8px;
          color: #ffffff;
          display: flex;
@@ -83,18 +83,23 @@ const StyledHandle = styled.div`
    }
 `;
 const RCSlider = ({
-   allowCross = false,
+   isDisabled = false,
+   max = 100,
+   min = 0,
    onChange,
-   pushable = true,
-   range = true,
+   step = 1,
    value = [0, 100],
 }) => (
    <StyledElement>
       <RangeSlider
-         allowCross={allowCross}
+         allowCross={false}
+         disabled={isDisabled}
          onChange={onChange}
-         pushable={pushable}
-         range={range}
+         pushable={true}
+         range={true}
+         step={step}
+         min={min}
+         max={max}
          value={value}
          handleRender={({ props }, { value, dragging }) => (
             <StyledHandle {...props} data-dragging={dragging}>
@@ -109,10 +114,10 @@ const RCSlider = ({
    </StyledElement>
 );
 RCSlider.propTypes = {
-   allowCross: bool,
+   isDisabled: bool,
    onChange: func,
-   pushable: bool,
    range: bool,
+   step: number,
    value: array,
 };
 export default RCSlider;

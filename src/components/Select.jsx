@@ -33,7 +33,6 @@ const defaultOptions = {
    components: { IndicatorSeparator: () => null, ClearIndicator },
    isClearable: true,
    isMulti: false,
-   isSearchable: false,
    maxMenuHeight: 230,
    menuPlacement: 'auto',
    menuPortalTarget: document.body,
@@ -45,25 +44,39 @@ const styles = {
       height: 42,
       padding: '13px 0 13px 16px',
    }),
+   input: styles => ({
+      ...styles,
+      height: '100%',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      padding: '12px 0 12px 16px',
+      margin: 0,
+      input: {
+         height: '100%',
+         fontSize: '17px !important',
+         fontWeight: '500 !important',
+      },
+   }),
    singleValue: (styles, { isDisabled }) => ({
       ...styles,
       color: isDisabled ? '#717171' : '#212121',
-      fontSize: 17,
+      fontSize: 16,
       fontWeight: 500,
       left: 0,
       margin: 0,
-      padding: '10px 0 10px 16px',
+      padding: '12px 0 12px 16px',
       position: 'absolute',
       top: 0,
    }),
    placeholder: styles => ({
       ...styles,
       color: '#717171',
-      fontSize: 17,
+      fontSize: 16,
       fontWeight: 500,
       left: 0,
       margin: 0,
-      padding: '10px 8px 10px 16px',
+      padding: '12px 8px 12px 16px',
       position: 'absolute',
       top: 0,
    }),
@@ -87,6 +100,7 @@ const styles = {
          width: 18,
       },
    }),
+   menuPortal: styles => ({ ...styles, zIndex: 9999 }),
    menu: styles => ({
       ...styles,
       backgroundColor: '#ffffff',
@@ -97,58 +111,6 @@ const styles = {
       margin: 0,
       overflow: 'hidden',
       padding: 0,
-   }),
-   menuPortal: styles => ({ ...styles, zIndex: 9999 }),
-   menuList: styles => ({
-      ...styles,
-      padding: 5,
-      '::-webkit-scrollbar': {
-         padding: '0 5px 0 0',
-         width: 6,
-      },
-      '::-webkit-scrollbar-track': {
-         backgroundColor: 'transparent',
-      },
-      '::-webkit-scrollbar-thumb': {
-         backgroundColor: '#3a79f3',
-         borderRadius: 3,
-      },
-   }),
-   option: (styles, { isSelected, isDisabled, isFocused }) => ({
-      ...styles,
-      backgroundColor: isDisabled
-         ? '#f7f8fc'
-         : isSelected
-         ? '#3a79f3'
-         : isFocused
-         ? 'rgba(82, 85, 241, 0.1)'
-         : '#ffffff',
-      borderRadius: 10,
-      color: isDisabled
-         ? '#696f85'
-         : isSelected
-         ? '#ffffff'
-         : isFocused
-         ? '#252a3b'
-         : '#252a3b',
-      cursor: isDisabled ? 'not-allowed' : 'pointer',
-      fontSize: 17,
-      fontWeight: 500,
-      height: 44,
-      overflow: 'hidden',
-      padding: '11px 12px',
-      textOverflow: 'ellipsis',
-      transition: 200,
-      transitionTimingFunction: 'cubic-bezier(0, 0, 1, 1)',
-      whiteSpace: 'nowrap',
-      width: '100%',
-      ':hover': {
-         backgroundColor: isDisabled
-            ? '#f7f8fc'
-            : isSelected
-            ? '#3a79f3'
-            : 'rgba(82, 85, 241, 0.1)',
-      },
    }),
    noOptionsMessage: styles => ({
       ...styles,
@@ -161,8 +123,70 @@ const styles = {
       textAlign: 'left',
       width: '100%',
    }),
+   menuList: styles => ({
+      ...styles,
+      padding: 5,
+      '::-webkit-scrollbar': {
+         padding: '0 5px 0 0',
+         width: 6,
+      },
+      '::-webkit-scrollbar-track': {
+         backgroundColor: 'transparent',
+      },
+      '::-webkit-scrollbar-thumb': {
+         backgroundColor: '#5254f1',
+         borderRadius: 3,
+      },
+   }),
+   option: (styles, { isSelected, isDisabled, isFocused }) => ({
+      ...styles,
+      backgroundColor: isDisabled
+         ? '#f7f8fc'
+         : isSelected
+         ? '#5254f1'
+         : isFocused
+         ? 'rgba(82, 85, 241, 0.1)'
+         : '#ffffff',
+      borderRadius: 10,
+      color: isDisabled
+         ? '#696f85'
+         : isSelected
+         ? '#ffffff'
+         : isFocused
+         ? '#252a3b'
+         : '#252a3b',
+      cursor: isDisabled ? 'not-allowed' : 'pointer',
+      fontSize: 16,
+      fontWeight: 500,
+      height: 46,
+      overflow: 'hidden',
+      padding: 12,
+      textOverflow: 'ellipsis',
+      transition: 200,
+      transitionTimingFunction: 'cubic-bezier(0, 0, 1, 1)',
+      whiteSpace: 'nowrap',
+      width: '100%',
+      ':hover': {
+         backgroundColor: isDisabled
+            ? '#f7f8fc'
+            : isSelected
+            ? '#5254f1'
+            : 'rgba(82, 85, 241, 0.1)',
+      },
+   }),
 };
-const Select = ({ noOptionsMessage, isError, ...props }) => {
+const Select = ({
+   isDisabled = false,
+   isError = false,
+   isSearchable = false,
+   noOptionsMessage,
+   options = [],
+   placeholder = '',
+   value = null,
+   onChange,
+   onFocus,
+   ...props
+}) => {
    const NoOptionsMessage =
       typeof noOptionsMessage === 'function'
          ? noOptionsMessage
@@ -171,7 +195,14 @@ const Select = ({ noOptionsMessage, isError, ...props }) => {
       <ReactSelect
          {...defaultOptions}
          {...props}
+         isDisabled={isDisabled}
+         isSearchable={isSearchable}
          noOptionsMessage={NoOptionsMessage}
+         onChange={onChange}
+         onFocus={onFocus}
+         options={options}
+         placeholder={placeholder}
+         value={value}
          styles={{
             ...styles,
             control: (styles, { isFocused }) => ({
@@ -184,8 +215,8 @@ const Select = ({ noOptionsMessage, isError, ...props }) => {
                boxShadow: 'none',
                color: 'rgb(37, 42, 59)',
                cursor: 'pointer',
-               height: 46,
-               minHeight: 46,
+               height: 48,
+               minHeight: 48,
                minWidth: 100,
                outline: 'none',
                padding: 0,
@@ -200,17 +231,10 @@ const Select = ({ noOptionsMessage, isError, ...props }) => {
       />
    );
 };
-Select.defaultProps = {
-   isDisabled: false,
-   isError: false,
-   noOptionsMessage: null,
-   options: [],
-   placeholder: '',
-   value: null,
-};
 Select.propTypes = {
    isDisabled: bool,
    isError: bool,
+   isSearchable: bool,
    noOptionsMessage: any,
    onChange: func,
    onFocus: func,

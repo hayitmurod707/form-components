@@ -1,4 +1,4 @@
-import { array, func, number } from 'prop-types';
+import { array, bool, func, number } from 'prop-types';
 import RangeSlider from 'react-slider';
 import styled from 'styled-components';
 const StyledElement = styled.div`
@@ -34,7 +34,7 @@ const StyledThumb = styled.div`
          position: absolute;
          width: 24px;
          &:before {
-            background-color: #3a79f3;
+            background-color: #5254f1;
             border-radius: 0 0 2px 0;
             bottom: -6px;
             content: '';
@@ -46,7 +46,7 @@ const StyledThumb = styled.div`
          }
          & div {
             align-items: center;
-            background-color: #3a79f3;
+            background-color: #5254f1;
             border-radius: 8px;
             color: #ffffff;
             display: flex;
@@ -66,7 +66,7 @@ const StyledTrack = styled.div`
    bottom: 0;
    top: 0;
    &[data-active='active'] {
-      background-color: #3a79f3;
+      background-color: #5254f1;
    }
    &[data-active='inactive'] {
       background-color: #f6f6f6;
@@ -90,26 +90,33 @@ const renderTrack = (props, { index, value }) => (
    />
 );
 const ReactSlider = ({
-   defaultValue = [0, 100],
-   minDistance = 1,
+   isDisabled = false,
+   max = 100,
+   min = 0,
    onChange,
+   step = 1,
    value = [0, 100],
 }) => (
    <StyledElement>
       <RangeSlider
-         defaultValue={defaultValue}
-         minDistance={minDistance}
+         disabled={isDisabled}
+         max={max}
+         min={min}
+         minDistance={1}
          onChange={onChange}
          renderThumb={renderThumb}
          renderTrack={renderTrack}
+         step={step}
          value={value}
       />
    </StyledElement>
 );
 ReactSlider.propTypes = {
-   defaultValue: array,
-   minDistance: number,
+   isDisabled: bool,
+   max: number,
+   min: number,
    onChange: func,
+   step: number,
    value: array,
 };
 export default ReactSlider;
