@@ -7,7 +7,7 @@ import AutoComplete from './components/AutoComplete';
 import Calendar from './components/Calendar/Calendar';
 import DateInput from './components/DateInput';
 import Input from './components/Input';
-import MultiSelect from './components/MultiSelect';
+import MultipleSelect from './components/MultipleSelect';
 import OTPInput from './components/OTPInput';
 import PINFLInput from './components/PINFLInput';
 import PassportInput from './components/PassportInput';
@@ -129,7 +129,6 @@ const App = () => {
    const [select, setSelect] = useState(null);
    const [search, setSearch] = useState('');
    const [rating, setRating] = useState(0);
-   const [loading, setLoading] = useState(false);
    const [checked, setChecked] = useState(false);
    const [creatableOptions, setCreatableOptions] = useState([]);
    const [range, setRange] = useState([20, 40, 60, 80]);
@@ -209,7 +208,9 @@ const App = () => {
             </div>
             <div className='content'>
                <label>Multi Select</label>
-               <MultiSelect
+               <MultipleSelect
+                  onChange={setValue}
+                  value={value}
                   options={[
                      { value: 1, label: 'Option 1' },
                      { value: 2, label: 'Option 2' },
@@ -219,8 +220,6 @@ const App = () => {
                      { value: 6, label: 'Option 6' },
                      { value: 7, label: 'Option 7' },
                   ]}
-                  onChange={setValue}
-                  value={value}
                />
             </div>
             <div className='content'>
@@ -235,7 +234,6 @@ const App = () => {
                <label>Select</label>
                <Select
                   onChange={setSelect}
-                  placeholder='Select option'
                   value={select}
                   options={[
                      {
@@ -259,31 +257,7 @@ const App = () => {
             </div>
             <div className='content'>
                <label>AutoComplete</label>
-               <AutoComplete
-                  isLoading={loading}
-                  onChange={setSearch}
-                  placeholder='Search option'
-                  setLoading={setLoading}
-                  value={search}
-                  options={[
-                     {
-                        label: 'Option 1',
-                        value: 1,
-                     },
-                     {
-                        label: 'Option 2',
-                        value: 2,
-                     },
-                     {
-                        label: 'Option 3',
-                        value: 3,
-                     },
-                     {
-                        label: 'Option 4',
-                        value: 4,
-                     },
-                  ]}
-               />
+               <AutoComplete onChange={setSearch} value={search} />
             </div>
             <div className='content'>
                <label>Switch input</label>

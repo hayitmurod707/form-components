@@ -78,6 +78,7 @@ const defaultOptions = {
       Menu: () => null,
       Input: InputC,
       Placeholder: () => null,
+      SingleValue: () => null,
    },
    styles: {
       control: (styles, { isFocused }) => ({
