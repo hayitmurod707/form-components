@@ -41,23 +41,6 @@ const StyledControl = styled.div`
    display: flex;
    height: 100%;
    width: 100%;
-   & .search-button {
-      align-items: center;
-      background-color: transparent;
-      color: #808080;
-      cursor: text;
-      display: flex;
-      height: 44px;
-      justify-content: center;
-      width: 46px;
-      & svg {
-         transition: 100ms;
-         margin: 0 0 0 4px;
-         & g {
-            stroke: '#949494';
-         }
-      }
-   }
    & .inner-content {
       height: 100%;
       width: calc(100% - 66px);
@@ -69,10 +52,10 @@ const StyledControl = styled.div`
       }
    }
    & .indicator-content {
-      align-items: center;
       display: flex;
-      height: 44px;
+      height: 100%;
       justify-content: flex-end;
+      margin: auto 0;
       padding: 0 12px 0 8px;
       width: 66px;
       & .loading-content {
