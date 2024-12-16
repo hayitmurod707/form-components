@@ -24,7 +24,7 @@ const StyledInput = styled.input`
       color: #717171;
    }
 `;
-const PhoneInput = memo(
+const INNInput = memo(
    forwardRef(
       (
          {
@@ -42,26 +42,18 @@ const PhoneInput = memo(
             disabled={isDisabled}
             formatChars={{ a: '[0-9]' }}
             inputMode='numeric'
-            mask='+998 (aa) aaa aa aa'
+            mask='aaaaaaaaa'
             maskChar=''
+            onChange={e => onChange(e.target.value.replace(/ /g, ''))}
             onFocus={onFocus}
             placeholder={placeholder}
-            ref={ref}
             type='text'
             value={value}
-            onChange={e => {
-               const value = String(e.target.value || '')
-                  .replace('(', '')
-                  .replace(')', '')
-                  .replace('+', '')
-                  .replace(/ /g, '');
-               onChange(value);
-            }}
          >
             {props => (
                <StyledInput
                   {...props}
-                  className='phone-input'
+                  className='inn-input'
                   disabled={isDisabled}
                   ref={ref}
                />
@@ -71,7 +63,7 @@ const PhoneInput = memo(
       {}
    )
 );
-PhoneInput.propTypes = {
+INNInput.propTypes = {
    isDisabled: bool,
    isError: bool,
    onChange: func,
@@ -79,4 +71,4 @@ PhoneInput.propTypes = {
    placeholder: string,
    value: string,
 };
-export default PhoneInput;
+export default INNInput;

@@ -11,7 +11,7 @@ const StyledRangeSlider = styled(RangeSlider)`
    width: calc(100% - 16px);
 `;
 const StyledThumb = styled.div`
-   background-color: #5254f1;
+   background-color: #3a79f3;
    border-radius: 50%;
    cursor: grab;
    height: 20px;
@@ -27,7 +27,7 @@ const StyledTrack = styled.div`
    bottom: 0;
    top: 0;
    &[data-active='active'] {
-      background-color: #5254f1;
+      background-color: #3a79f3;
    }
    &[data-active='inactive'] {
       background-color: transparent;
@@ -63,7 +63,7 @@ const StyledInput = styled.input`
       cursor: default;
    }
    &:focus {
-      border: 1.5px solid #5254f1;
+      border: 1.5px solid #3a79f3;
    }
 `;
 const StyledSliderInput = styled.div`
@@ -93,9 +93,8 @@ const SliderInput = memo(
             placeholder={placeholder}
             type='text'
             value={String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
-            onChange={async e => {
-               const value =
-                  (await +e.target.value.replace(/[^0-9]/g, '')) || 0;
+            onChange={e => {
+               const value = +e.target.value.replace(/[^0-9]/g, '') || 0;
                const newValue = value > max ? max : value < min ? min : value;
                onChange(newValue);
             }}

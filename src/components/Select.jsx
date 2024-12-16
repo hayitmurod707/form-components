@@ -132,13 +132,14 @@ const styles = {
          backgroundColor: 'transparent',
       },
       '::-webkit-scrollbar-thumb': {
-         backgroundColor: '#5254f1',
+         backgroundColor: '#3a79f3',
          borderRadius: 3,
       },
    }),
    option: (styles, { isSelected, isDisabled, isFocused }) => ({
       ...styles,
       borderRadius: 10,
+      color: isDisabled ? '#696f85' : isSelected ? '#ffffff' : '#000000',
       cursor: isDisabled ? 'not-allowed' : 'pointer',
       fontSize: 16,
       fontWeight: 500,
@@ -150,24 +151,17 @@ const styles = {
       whiteSpace: 'nowrap',
       width: '100%',
       backgroundColor: isDisabled
-         ? '#f7f8fc'
+         ? '#f1f1f1'
          : isSelected
-         ? '#5254f1'
+         ? '#3a79f3'
          : isFocused
          ? 'rgba(82, 85, 241, 0.1)'
          : '#ffffff',
-      color: isDisabled
-         ? '#696f85'
-         : isSelected
-         ? '#ffffff'
-         : isFocused
-         ? '#000000'
-         : '#000000',
       ':hover': {
          backgroundColor: isDisabled
-            ? '#f7f8fc'
+            ? '#f1f1f1'
             : isSelected
-            ? '#5254f1'
+            ? '#3a79f3'
             : 'rgba(82, 85, 241, 0.1)',
       },
    }),
@@ -220,11 +214,11 @@ const Select = memo(
                      ? 'text'
                      : 'pointer',
                   border: `1.5px solid ${
-                     isError ? '#e41d32' : isFocused ? '#5254f1' : '#e1e1e1'
+                     isError ? '#e41d32' : isFocused ? '#3a79f3' : '#e1e1e1'
                   }`,
                   ':hover': {
                      border: `1.5px solid ${
-                        isError ? '#e41d32' : isFocused ? '#5254f1' : '#e1e1e1'
+                        isError ? '#e41d32' : isFocused ? '#3a79f3' : '#e1e1e1'
                      }`,
                   },
                }),

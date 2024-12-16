@@ -228,6 +228,7 @@ const styles = {
       padding: 0,
       position: 'absolute',
       top: 0,
+      visibility: 'visible',
    }),
    menuPortal: styles => ({ ...styles, zIndex: 9999 }),
    menu: styles => ({
@@ -299,7 +300,7 @@ const AutoComplete = memo(
          },
       ]);
       const debouncedSearch = useDebouncedCallback(async search => {
-         await setLoading(true);
+         await setLoading(false);
          // const url = getUrl(search);
          // telemarketingAPI({ url })
          //    .then(response => setOptions(getResponse(response)))
@@ -349,7 +350,7 @@ const AutoComplete = memo(
                   whiteSpace: 'nowrap',
                   width: '100%',
                   backgroundColor: isDisabled
-                     ? '#f7f8fc'
+                     ? '#f1f1f1'
                      : data?.value === value?.value
                      ? '#3a79f3'
                      : isFocused
@@ -364,7 +365,7 @@ const AutoComplete = memo(
                      : '#252a3b',
                   ':hover': {
                      backgroundColor: isDisabled
-                        ? '#f7f8fc'
+                        ? '#f1f1f1'
                         : data?.value === value?.value
                         ? '#3a79f3'
                         : 'rgba(82, 85, 241, 0.1)',

@@ -2,7 +2,7 @@ import { bool, func, string } from 'prop-types';
 import { forwardRef, memo } from 'react';
 import styled from 'styled-components';
 const StyledInput = styled.input`
-   background-color: transparent;
+   background-color: #ffffff;
    border-radius: 10px;
    border: 1.5px solid #e1e1e1;
    font-size: 17px;
@@ -15,9 +15,10 @@ const StyledInput = styled.input`
       border: 1.5px solid #ff5749;
    }
    &:focus {
-      border: 1.5px solid #5254f1;
+      border: 1.5px solid #3a79f3;
    }
    &:disabled {
+      background-color: #f4f4f4;
       border: 1.5px solid #e1e1e1;
       color: #717171;
    }
@@ -36,6 +37,7 @@ const TextInput = memo(
          ref
       ) => (
          <StyledInput
+            className='text-input'
             data-error={isError}
             disabled={isDisabled}
             onChange={e => onChange(e.target.value)}

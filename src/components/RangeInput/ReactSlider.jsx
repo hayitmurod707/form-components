@@ -34,7 +34,7 @@ const StyledThumb = styled.div`
          position: absolute;
          width: 24px;
          &:before {
-            background-color: #5254f1;
+            background-color: #3a79f3;
             border-radius: 0 0 2px 0;
             bottom: -6px;
             content: '';
@@ -46,7 +46,7 @@ const StyledThumb = styled.div`
          }
          & div {
             align-items: center;
-            background-color: #5254f1;
+            background-color: #3a79f3;
             border-radius: 8px;
             color: #ffffff;
             display: flex;
@@ -66,7 +66,7 @@ const StyledTrack = styled.div`
    bottom: 0;
    top: 0;
    &[data-active='active'] {
-      background-color: #5254f1;
+      background-color: #3a79f3;
    }
    &[data-active='inactive'] {
       background-color: #f6f6f6;

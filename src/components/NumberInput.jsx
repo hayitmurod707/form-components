@@ -3,7 +3,7 @@ import { bool, func, string } from 'prop-types';
 import { forwardRef, memo } from 'react';
 import styled from 'styled-components';
 const StyledInput = styled(CleaveInput)`
-   background-color: transparent;
+   background-color: #ffffff;
    border-radius: 10px;
    border: 1.5px solid #e1e1e1;
    font-size: 16px;

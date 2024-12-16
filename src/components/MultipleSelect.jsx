@@ -32,13 +32,13 @@ const ClearIndicator = props => (
 );
 const StyledMultiValue = styled.div`
    align-items: center;
-   background-color: #eff0f3;
+   background-color: #f1f1f1;
    border-radius: 8px;
    cursor: default;
    display: flex;
    margin: 4px 4px 0 0;
    max-width: 100%;
-   min-height: 36px;
+   min-height: 38px;
    padding: 4px 7px 4px 10px;
    &[data-disabled='true'] {
       background-color: #ffffff;
@@ -64,7 +64,7 @@ const StyledMultiValue = styled.div`
 `;
 const MultiValue = ({
    data: { label },
-   isDisabled,
+   isDisabled = false,
    removeProps: { onClick },
 }) => (
    <StyledMultiValue data-disabled={isDisabled}>
@@ -81,8 +81,9 @@ const MultiValue = ({
 const IndicatorSeparator = () => null;
 const defaultOptions = {
    components: { IndicatorSeparator, MultiValue, ClearIndicator },
+   className: 'multiple-select-input',
    isMulti: true,
-   maxMenuHeight: 230,
+   maxMenuHeight: 250,
    menuPlacement: 'auto',
    menuPortalTarget: document.body,
 };
@@ -102,22 +103,23 @@ const styles = {
       color: '#717171',
       fontSize: 16,
       fontWeight: 500,
+      height: '100%',
       left: 0,
       margin: 0,
-      maxWidth: '100%',
       overflow: 'hidden',
-      padding: '13px 0 11px 15px',
+      padding: '10px 0 10px 15px',
       position: 'absolute',
       textOverflow: 'ellipsis',
       top: 0,
       whiteSpace: 'nowrap',
+      width: '100%',
    }),
    input: (styles, { isDisabled, hasValue }) => ({
       ...styles,
       color: isDisabled ? '#717171' : '#212121',
       fontSize: 16,
       fontWeight: 500,
-      height: 36,
+      height: 38,
       margin: `4px 0 0 ${hasValue ? 0 : 11}px`,
       maxWidth: '100%',
       overflow: 'hidden',
@@ -155,8 +157,8 @@ const styles = {
    menuPortal: styles => ({ ...styles, zIndex: 9999 }),
    menu: styles => ({
       ...styles,
-      backgroundColor: 'rgb(255, 255, 255)',
-      borderRadius: 12,
+      backgroundColor: '#ffffff',
+      borderRadius: 10,
       border: 'none',
       margin: 0,
       overflow: 'hidden',
@@ -166,7 +168,7 @@ const styles = {
    }),
    noOptionsMessage: styles => ({
       ...styles,
-      color: '#000000',
+      color: 'rgb(37, 42, 59)',
       cursor: 'default',
       fontSize: 16,
       fontWeight: 500,
@@ -185,38 +187,36 @@ const styles = {
          backgroundColor: 'transparent',
       },
       '::-webkit-scrollbar-thumb': {
-         backgroundColor: '#5254f1',
+         backgroundColor: '#3a79f3',
          borderRadius: 3,
       },
    }),
    option: (styles, { isDisabled, isFocused }) => ({
       ...styles,
+      backgroundColor: isDisabled
+         ? '#f1f1f1'
+         : isFocused
+         ? 'rgba(82, 85, 241, 0.1)'
+         : '#ffffff',
       borderRadius: 10,
+      color: isDisabled ? '#696f85' : '#000000',
       cursor: isDisabled ? 'not-allowed' : 'pointer',
       fontSize: 16,
       fontWeight: 500,
-      height: 44,
+      height: 48,
       overflow: 'hidden',
-      padding: '11px 12px',
+      padding: 12,
       textOverflow: 'ellipsis',
       transition: 200,
       whiteSpace: 'nowrap',
       width: '100%',
-      backgroundColor: isDisabled
-         ? 'rgb(247, 248, 252)'
-         : isFocused
-         ? 'rgba(82, 85, 241, 0.1)'
-         : 'rgb(255, 255, 255)',
-      color: isDisabled
-         ? 'rgb(105, 111, 133)'
-         : isFocused
-         ? 'rgb(37, 42, 59)'
-         : 'rgb(37, 42, 59)',
       ':hover': {
          backgroundColor: isDisabled
-            ? 'rgb(128, 128, 128)'
-            : 'rgba(82, 85, 241, 0.1)',
-         color: 'rgb(37, 42, 59)',
+            ? '#f1f1f1'
+            : isFocused
+            ? 'rgba(82, 85, 241, 0.1)'
+            : '#ffffff',
+         color: isDisabled ? '#696f85' : '#000000',
       },
    }),
 };

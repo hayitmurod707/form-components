@@ -4,7 +4,7 @@ import Select from 'react-select/creatable';
 import styled from 'styled-components';
 const StyledMultiValue = styled.div`
    align-items: center;
-   background-color: rgb(239, 240, 243);
+   background-color: #eff0f3;
    border-radius: 8px;
    display: flex;
    margin: 2px 0 2px 5px;
@@ -29,7 +29,7 @@ const StyledMultiValue = styled.div`
       justify-content: center;
       width: 19px;
       &:hover {
-         background-color: rgb(255, 0, 0);
+         background-color: #ff0000;
       }
    }
 `;
@@ -61,7 +61,7 @@ const defaultOptions = {
    styles: {
       control: (styles, { isFocused }) => ({
          ...styles,
-         backgroundColor: 'rgb(255, 255, 255)',
+         backgroundColor: '#ffffff',
          border: isFocused ? '1.5px solid #0071f2' : '1.5px solid #e1e1e1',
          borderRadius: 10,
          boxShadow: 'none',
@@ -133,17 +133,13 @@ const defaultOptions = {
             width: 16,
          },
          ':hover': {
-            backgroundColor: 'rgb(255, 0, 0)',
-            color: 'rgb(255, 255, 255)',
+            backgroundColor: '#ff0000',
+            color: '#ffffff',
          },
       }),
    },
 };
-const CreatableSelect = ({
-   onChange,
-   placeholder = 'Create option',
-   value = [],
-}) => {
+const CreatableSelect = ({ onChange, placeholder = '', value = [] }) => {
    const [inputValue, setInputValue] = useState('');
    const onKeyDown = e => {
       if (inputValue && (e.key === 'Enter' || e.key === 'Tab')) {

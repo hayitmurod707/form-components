@@ -14,7 +14,7 @@ const StyledElement = styled.div`
          height: 5px;
          transition: none;
          & .input-range__track--active {
-            background-color: #5254f1;
+            background-color: #3a79f3;
             height: 5px;
             transition: none;
          }

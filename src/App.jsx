@@ -6,7 +6,7 @@ import CreditCardInput from './components/CreditCardInput';
 import AutoComplete from './components/AutoComplete';
 import Calendar from './components/Calendar/Calendar';
 import DateInput from './components/DateInput';
-import Input from './components/Input';
+import INNInput from './components/INNInput';
 import MultipleSelect from './components/MultipleSelect';
 import OTPInput from './components/OTPInput';
 import PINFLInput from './components/PINFLInput';
@@ -74,27 +74,11 @@ const StyledInputContent = styled.div`
       width: 300px;
       & label {
          display: block;
+         color: #949494;
          margin: 0 0 6px 0;
          font-weight: 500;
          font-size: 16px;
       }
-   }
-`;
-const StyledOTPContent = styled.div`
-   align-items: center;
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   width: 100%;
-   & .sub-title {
-      font-size: 24px;
-      font-weight: 600;
-      margin: 24px 0 8px 0;
-      width: 300px;
-   }
-   & .content {
-      padding: 8px 0 24px 0;
-      width: 300px;
    }
 `;
 // const StyledEditorContent = styled.div`
@@ -135,7 +119,7 @@ const App = () => {
    const [val, setVal] = useState([30, 80]);
    const [value, setValue] = useState([]);
    const [currency, setCurrency] = useState('');
-   const [input, setInput] = useState('');
+   const [inn, setINN] = useState('');
    return (
       <Fragment>
          <StyledHeader>
@@ -153,27 +137,6 @@ const App = () => {
          </StyledHeader>
          <StyledInputContent>
             <h2 className='sub-title'>Inputs</h2>
-            <div className='content'>
-               <label>Stars input</label>
-               <StarsInput value={rating} onChange={setRating} />
-            </div>
-            <div className='content'>
-               <label>Slider input</label>
-               <SliderInput
-                  max={100}
-                  min={0}
-                  onChange={setCurrency}
-                  value={currency}
-               />
-            </div>
-            <div className='content'>
-               <label></label>
-               <Input onChange={setInput} value={input} />
-            </div>
-            <div className='content'>
-               <label>Date input</label>
-               <DateInput value={date} onChange={setDate} />
-            </div>
             <div className='content'>
                <label>Text input</label>
                <TextInput onChange={setText} value={text} />
@@ -195,17 +158,65 @@ const App = () => {
                <PINFLInput onChange={setPinfl} value={pinfl} />
             </div>
             <div className='content'>
+               <label>Inn input</label>
+               <INNInput onChange={setINN} value={inn} />
+            </div>
+            <div className='content'>
+               <label>Slider input</label>
+               <SliderInput
+                  max={100}
+                  min={0}
+                  onChange={setCurrency}
+                  value={currency}
+               />
+            </div>
+            <div className='content'>
                <label>Password input</label>
                <PasswordInput onChange={setPassword} value={password} />
+            </div>
+            <div className='content'>
+               <label>Date input</label>
+               <DateInput value={date} onChange={setDate} />
             </div>
             <div className='content'>
                <label>Time input</label>
                <TimeInput onChange={setTime} value={time} />
             </div>
             <div className='content'>
+               <label>Otp input</label>
+               <OTPInput autoFocus={false} onChange={setOTP} value={OTP} />
+            </div>
+            <div className='content'>
+               <label>Stars input</label>
+               <StarsInput value={rating} onChange={setRating} />
+            </div>
+            <div className='content'>
                <label>Textarea</label>
                <Textarea onChange={setComment} value={comment} />
             </div>
+            <div className='content'>
+               <label>Switch input</label>
+               <SwitchInput onChange={setChecked} checked={checked} />
+            </div>
+            <div className='content'>
+               <label>ReactSlider</label>
+               <ReactSlider onChange={setRange} value={range} />
+            </div>
+            <div className='content'>
+               <label>ReactRange</label>
+               <ReactRange onChange={setRange} value={range} />
+            </div>
+            <div className='content'>
+               <label>RCSlider</label>
+               <RCSlider onChange={setRange} value={range} />
+            </div>
+            <div className='content'>
+               <label>ReactInputRange</label>
+               <ReactInputRange onChange={setVal} value={val} />
+            </div>
+         </StyledInputContent>
+         <StyledInputContent>
+            <h2 className='sub-title'>Selects</h2>
             <div className='content'>
                <label>Multi Select</label>
                <MultipleSelect
@@ -227,7 +238,6 @@ const App = () => {
                <CreatableSelect
                   onChange={setCreatableOptions}
                   value={creatableOptions}
-                  placeholder='Create option'
                />
             </div>
             <div className='content'>
@@ -259,33 +269,7 @@ const App = () => {
                <label>AutoComplete</label>
                <AutoComplete onChange={setSearch} value={search} />
             </div>
-            <div className='content'>
-               <label>Switch input</label>
-               <SwitchInput onChange={setChecked} checked={checked} />
-            </div>
-            <div className='content'>
-               <label>ReactSlider</label>
-               <ReactSlider onChange={setRange} value={range} />
-            </div>
-            <div className='content'>
-               <label>ReactRange</label>
-               <ReactRange onChange={setRange} value={range} />
-            </div>
-            <div className='content'>
-               <label>RCSlider</label>
-               <RCSlider onChange={setRange} value={range} />
-            </div>
-            <div className='content'>
-               <label>ReactInputRange</label>
-               <ReactInputRange onChange={setVal} value={val} />
-            </div>
          </StyledInputContent>
-         <StyledOTPContent>
-            <h2 className='sub-title'>OTP input</h2>
-            <div className='content'>
-               <OTPInput autoFocus={false} onChange={setOTP} value={OTP} />
-            </div>
-         </StyledOTPContent>
          <Calendar />
          {/* <StyledEditorContent>
             <h2 className='sub-title'>Editor</h2>

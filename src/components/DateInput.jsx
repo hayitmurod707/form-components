@@ -15,7 +15,7 @@ import CleaveInput from 'cleave.js/react';
 import { bool, func, string } from 'prop-types';
 import { forwardRef, Fragment, memo, useState } from 'react';
 import Calendar from 'react-calendar';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 const StyledCalendar = styled.div`
    background-color: #ffffff;
@@ -164,7 +164,9 @@ const StyledCalendar = styled.div`
       & .clear {
          background-color: #f4f4f4;
          border-radius: 10px;
+         border: none;
          color: #717171;
+         cursor: pointer;
          font-size: 15px;
          font-weight: 500;
          height: 36px;
@@ -173,7 +175,9 @@ const StyledCalendar = styled.div`
       & .save {
          background-color: #3a79f3;
          border-radius: 10px;
+         border: none;
          color: #ffffff;
+         cursor: pointer;
          font-size: 15px;
          font-weight: 500;
          height: 36px;
@@ -187,11 +191,11 @@ const StyledControl = styled.div`
    position: relative;
    width: 100%;
    & input {
-      background-color: transparent;
+      background-color: #ffffff;
       border-radius: 10px;
       border: 1.5px solid #e1e1e1;
       color: #000000;
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 500;
       height: 46px;
       outline: none;
@@ -320,8 +324,10 @@ const DateInput = memo(
          },
          ref
       ) => {
-         const { i18n } = useTranslation();
-         const currentLocale = locales?.[i18n?.language];
+         // const { i18n } = useTranslation();
+         // const language = i18n?.language;
+         const language = 'uz';
+         const currentLocale = locales?.[language];
          const days = currentLocale?.days;
          const months = currentLocale?.months;
          const [view, setView] = useState('month');
@@ -352,31 +358,64 @@ const DateInput = memo(
             dismiss,
             role,
          ]);
+         const inputProps = {
+            'data-error': isError,
+            className: 'date-input',
+            disabled: isDisabled,
+            inputMode: 'numeric',
+            onChange,
+            onFocus,
+            placeholder,
+            ref,
+            type: 'text',
+            value,
+            options: {
+               date: true,
+               datePattern: ['d', 'm', 'Y'],
+               delimiter: '-',
+            },
+         };
+         const iconProps = {
+            ...getReferenceProps(),
+            'data-disabled': isDisabled,
+            className: 'indicator-content',
+         };
+         const calendarProps = {
+            formatMonth: (_, date) => months[date?.getMonth()],
+            formatShortWeekday: (_, date) => days[date?.getDay()],
+            next2Label: null,
+            nextLabel: <NextIcon />,
+            onChange: setCalendar,
+            onViewChange: ({ view }) => setView(view),
+            prev2Label: null,
+            prevLabel: <PrevIcon />,
+            value: calendar,
+            view,
+            navigationLabel: ({ view, label, date }) => {
+               const navigationLabel =
+                  view === 'month'
+                     ? `${months[date?.getMonth()]} ${date?.getFullYear()}`
+                     : label;
+               return navigationLabel;
+            },
+         };
+         const onClose = () => {
+            onChange('');
+            setIsOpen(false);
+         };
+         const onSelect = () => {
+            const date = String(calendar.getDate()).padStart(2, '0');
+            const month = String(calendar.getMonth() + 1).padStart(2, '0');
+            const year = String(calendar.getFullYear()).padStart(2, '0');
+            const value = `${date}-${month}-${year}`;
+            onChange(value);
+            setIsOpen(false);
+         };
          return (
             <Fragment>
                <StyledControl ref={refs.setReference}>
-                  <CleaveInput
-                     className='date-input'
-                     data-error={isError}
-                     disabled={isDisabled}
-                     inputMode='numeric'
-                     onChange={e => onChange(e.target.value)}
-                     onFocus={onFocus}
-                     placeholder={placeholder}
-                     ref={ref}
-                     type='text'
-                     value={value}
-                     options={{
-                        date: true,
-                        datePattern: ['d', 'm', 'Y'],
-                        delimiter: '-',
-                     }}
-                  />
-                  <div
-                     {...getReferenceProps()}
-                     className='indicator-content'
-                     data-disabled={isDisabled}
-                  >
+                  <CleaveInput {...inputProps} />
+                  <div {...iconProps}>
                      <DownIcon />
                   </div>
                </StyledControl>
@@ -392,56 +431,13 @@ const DateInput = memo(
                            style={floatingStyles}
                            {...getFloatingProps()}
                         >
-                           <Calendar
-                              next2Label={null}
-                              nextLabel={<NextIcon />}
-                              onChange={setCalendar}
-                              onViewChange={({ view }) => setView(view)}
-                              prev2Label={null}
-                              prevLabel={<PrevIcon />}
-                              value={calendar}
-                              view={view}
-                              formatMonth={(_, date) =>
-                                 months[date?.getMonth()]
-                              }
-                              formatShortWeekday={(_, date) =>
-                                 days[date?.getDay()]
-                              }
-                              navigationLabel={({ view, label, date }) =>
-                                 view === 'month'
-                                    ? `${
-                                         months[date?.getMonth()]
-                                      } ${date?.getFullYear()}`
-                                    : label
-                              }
-                           />
+                           <Calendar {...calendarProps} />
                            {view === 'month' && (
                               <div className='date-input-actions'>
-                                 <button
-                                    className='clear'
-                                    onClick={() => {
-                                       onChange('');
-                                       setIsOpen(false);
-                                    }}
-                                 >
+                                 <button className='clear' onClick={onClose}>
                                     {currentLocale?.clear}
                                  </button>
-                                 <button
-                                    className='save'
-                                    onClick={() => {
-                                       const date = String(
-                                          calendar.getDate() || ''
-                                       ).padStart(2, '0');
-                                       const month = String(
-                                          calendar.getMonth() + 1 || ''
-                                       ).padStart(2, '0');
-                                       const year = String(
-                                          calendar.getFullYear() || ''
-                                       ).padStart(2, '0');
-                                       onChange(`${date}-${month}-${year}`);
-                                       setIsOpen(false);
-                                    }}
-                                 >
+                                 <button className='save' onClick={onSelect}>
                                     {currentLocale?.done}
                                  </button>
                               </div>

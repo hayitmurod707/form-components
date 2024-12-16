@@ -19,7 +19,7 @@ const StyledElement = styled.div`
          height: 5px;
       }
       & .rc-slider-track {
-         background-color: #5254f1;
+         background-color: #3a79f3;
          cursor: pointer;
          height: 5px;
          position: absolute;
@@ -58,7 +58,7 @@ const StyledHandle = styled.div`
       position: absolute;
       width: 24px;
       &:before {
-         background-color: #5254f1;
+         background-color: #3a79f3;
          border-radius: 0 0 2px 0;
          bottom: -6px;
          content: '';
@@ -70,7 +70,7 @@ const StyledHandle = styled.div`
       }
       & div {
          align-items: center;
-         background-color: #5254f1;
+         background-color: #3a79f3;
          border-radius: 8px;
          color: #ffffff;
          display: flex;

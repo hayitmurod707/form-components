@@ -4,15 +4,16 @@ import styled from 'styled-components';
 const StyledComponent = styled.div`
    position: relative;
    & input {
-      background-color: transparent;
+      background-color: #ffffff;
       border-radius: 10px;
       border: 1.5px solid #e1e1e1;
-      font-size: 17px;
+      color: #000000;
+      font-size: 16px;
       font-weight: 500;
       height: 48px;
       outline: none;
-      padding-left: 17px;
-      padding-right: 44px;
+      padding-left: 15px;
+      padding-right: 45px;
       width: 100%;
       &[data-error='true'] {
          border: 1.5px solid #ff5749;
@@ -24,11 +25,12 @@ const StyledComponent = styled.div`
          letter-spacing: initial;
       }
       &:focus {
-         border: 1.5px solid #5254f1;
+         border: 1.5px solid #3a79f3;
       }
       &:disabled {
-         border: 1.5px solid #e1e1e1;
+         background-color: #f4f4f4;
          color: #717171;
+         cursor: default;
       }
       &::placeholder {
          letter-spacing: initial;
@@ -36,14 +38,22 @@ const StyledComponent = styled.div`
    }
    & .toggle {
       align-items: center;
+      border-radius: 20px;
+      color: #808080;
       cursor: pointer;
       display: flex;
-      height: 100%;
+      height: 40px;
       justify-content: center;
       position: absolute;
-      right: 0;
-      top: 0;
-      width: 44px;
+      right: 5px;
+      top: 4px;
+      user-select: none;
+      width: 40px;
+      &[data-disabled='false'] {
+         &:hover {
+            background-color: #f1f1f1;
+         }
+      }
    }
 `;
 const Open = () => (
@@ -95,6 +105,7 @@ const PasswordInput = memo(
          return (
             <StyledComponent>
                <input
+                  className='password-input'
                   data-error={isError}
                   disabled={isDisabled}
                   onChange={e => onChange(e.target.value)}
@@ -106,6 +117,7 @@ const PasswordInput = memo(
                />
                <div
                   className='toggle'
+                  data-disabled={isDisabled}
                   onClick={() => {
                      setType(!type);
                      currentRef.current.focus();

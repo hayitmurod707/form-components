@@ -7,8 +7,8 @@ const StyledElement = styled.div`
    }
 `;
 const StyledInput = styled.input`
+   background-color: #ffffff;
    border-radius: 10px;
-   background-color: transparent;
    border: 1.5px solid #e1e1e1;
    font-size: 18px;
    font-weight: 600;
@@ -21,9 +21,10 @@ const StyledInput = styled.input`
       border: 1.5px solid #ff5749;
    }
    &:focus {
-      border: 1.5px solid #5254f1;
+      border: 1.5px solid #3a79f3;
    }
    &:disabled {
+      background-color: #f4f4f4;
       border: 1.5px solid #e1e1e1;
       color: #717171;
    }
