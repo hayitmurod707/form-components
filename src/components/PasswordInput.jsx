@@ -60,7 +60,7 @@ const Open = () => (
    <svg
       fill='none'
       height='20'
-      stroke='#6E7892'
+      stroke='#808080'
       strokeLinecap='round'
       strokeLinejoin='round'
       strokeWidth='2'
@@ -75,7 +75,7 @@ const Close = () => (
    <svg
       fill='none'
       height='20'
-      stroke='#6E7892'
+      stroke='#808080'
       strokeLinecap='round'
       strokeLinejoin='round'
       strokeWidth='2'

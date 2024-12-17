@@ -5,6 +5,7 @@ import CreditCardInput from './components/CreditCardInput';
 // import Editor from './components/Editor';
 import AutoComplete from './components/AutoComplete';
 import Calendar from './components/Calendar/Calendar';
+import ColorInput from './components/ColorInput';
 import DateInput from './components/DateInput';
 import INNInput from './components/INNInput';
 import MultipleSelect from './components/MultipleSelect';
@@ -120,6 +121,8 @@ const App = () => {
    const [value, setValue] = useState([]);
    const [currency, setCurrency] = useState('');
    const [inn, setINN] = useState('');
+   const [color, setColor] = useState('');
+   console.log(color);
    return (
       <Fragment>
          <StyledHeader>
@@ -177,6 +180,10 @@ const App = () => {
             <div className='content'>
                <label>Date input</label>
                <DateInput value={date} onChange={setDate} />
+            </div>
+            <div className='content'>
+               <label>Color input</label>
+               <ColorInput value={color} onChange={setColor} />
             </div>
             <div className='content'>
                <label>Time input</label>

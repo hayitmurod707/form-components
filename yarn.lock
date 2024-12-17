@@ -8326,6 +8326,11 @@ react-calendar@^4.8.0:
     prop-types "^15.6.0"
     warning "^4.0.0"
 
+react-color-palette@^7.3.0:
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/react-color-palette/-/react-color-palette-7.3.0.tgz#2229230b0513ea0bb303c74319f1840c6f0608e0"
+  integrity sha512-GCgz+XEcbyFkq5wVvrPiXp8mUnOI3oObtmOtsZBCpDXgzHcDCJdssW8lTtVXbUqodo6pOw6pwYQRlXpi/ekkzQ==
+
 react-contexify@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/react-contexify/-/react-contexify-6.0.0.tgz#52959bb507d6a31224fe870ae147e211e359abe1"

@@ -187,7 +187,7 @@ const StyledCalendar = styled.div`
 `;
 const StyledControl = styled.div`
    display: flex;
-   height: 46;
+   height: 48;
    position: relative;
    width: 100%;
    & input {
@@ -197,7 +197,7 @@ const StyledControl = styled.div`
       color: #000000;
       font-size: 17px;
       font-weight: 500;
-      height: 46px;
+      height: 48px;
       outline: none;
       padding-left: 15px;
       padding-right: 45px;
@@ -228,7 +228,7 @@ const StyledControl = styled.div`
       justify-content: center;
       position: absolute;
       right: 5px;
-      top: 3px;
+      top: 4px;
       user-select: none;
       width: 40px;
       &[data-disabled='false'] {

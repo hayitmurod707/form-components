@@ -476,7 +476,6 @@ const Calendar = ({
    const onSelectEvent = (event, nativeEvent) => {
       setEvent({ event, nativeEvent });
    };
-   console.log(event);
    const onSelectSlot = (e, e1) => {
       console.log(e, e1);
    };
