@@ -12,8 +12,8 @@ import {
    useRole,
 } from '@floating-ui/react';
 import { bool, func, string } from 'prop-types';
-import { forwardRef, Fragment, memo, useState } from 'react';
-import { ColorPicker, useColor } from 'react-color-palette';
+import { Fragment, memo, useState } from 'react';
+import { ColorPicker } from 'react-color-palette';
 import 'react-color-palette/css';
 import styled from 'styled-components';
 const StyledColor = styled.div`
@@ -79,137 +79,121 @@ const StyledColor = styled.div`
       }
    }
 `;
-const StyledControl = styled.div`
-   display: flex;
-   height: 48;
-   position: relative;
-   width: 100%;
+const StyledControl = styled.button`
+   align-items: center;
+   background-color: #ffffff;
+   border-radius: 10px;
+   border: 1.5px solid #e1e1e1;
    cursor: pointer;
-   & .input {
-      background-color: #ffffff;
-      border-radius: 10px;
-      border: 1.5px solid #e1e1e1;
-      color: #000000;
-      font-size: 17px;
-      font-weight: 500;
-      height: 46px;
-      outline: none;
-      padding-left: 46px;
-      padding-right: 15px;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      user-select: none;
-      &[data-error='true'] {
-         border-color: #e41d32;
-      }
-      &[data-disabled='true'] {
-         background-color: #f4f4f4;
-         color: #717171;
-         cursor: default;
-      }
-      &:focus {
-         border: 1.5px solid #3a79f3;
-      }
+   display: flex;
+   height: 48px;
+   outline: none;
+   padding: 0 16px;
+   position: relative;
+   user-select: none;
+   width: 100%;
+   &[data-error='true'] {
+      border-color: #e41d32;
    }
-   & .indicator-content {
+   &[data-disabled='true'] {
+      background-color: #f4f4f4;
+      color: #717171;
+      cursor: default;
+   }
+   &:focus,
+   &[data-focused='true'] {
+      border: 1.5px solid #3a79f3;
+   }
+   & .indicator {
       align-items: center;
-      background-color: transparent;
+      background-color: #ff0000;
       border-radius: 7px;
       cursor: pointer;
       display: flex;
       height: 24px;
       justify-content: center;
-      position: absolute;
-      left: 16px;
-      top: 11px;
       user-select: none;
       width: 24px;
    }
+   & .value {
+      align-items: center;
+      color: #000000;
+      display: flex;
+      font-size: 17px;
+      font-weight: 500;
+      padding-left: 10px;
+      width: calc(100% - 24px);
+   }
 `;
 const ColorInput = memo(
-   forwardRef(
-      (
-         {
-            isDisabled = false,
-            isError = false,
-            onChange,
-            onFocus,
-            placeholder = '',
-            value = '',
-         },
-         ref
-      ) => {
-         const [color, setColor] = useColor(value);
-         const [isOpen, setIsOpen] = useState(false);
-         const { refs, floatingStyles, context } = useFloating({
-            open: isOpen,
-            whileElementsMounted: autoUpdate,
-            onOpenChange: setIsOpen,
-            middleware: [
-               offset(0),
-               flip({ fallbackAxisSideDirection: 'end' }),
-               shift(),
-            ],
-         });
-         const click = useClick(context, { enabled: !isDisabled });
-         const dismiss = useDismiss(context);
-         const role = useRole(context);
-         const { getReferenceProps, getFloatingProps } = useInteractions([
-            click,
-            dismiss,
-            role,
-         ]);
-         return (
-            <Fragment>
-               <StyledControl
-                  {...getReferenceProps()}
-                  ref={refs.setReference}
-                  onFocus={onFocus}
-               >
-                  <div
-                     className='indicator-content'
-                     style={{ backgroundColor: color?.hex }}
-                  ></div>
-                  <div
-                     className='input'
-                     data-disabled={isDisabled}
-                     data-error={isError}
+   ({
+      isDisabled = false,
+      isError = false,
+      onChange,
+      onFocus,
+      placeholder = '',
+      value = '',
+   }) => {
+      const [isOpen, setIsOpen] = useState(false);
+      const { refs, floatingStyles, context } = useFloating({
+         open: isOpen,
+         whileElementsMounted: autoUpdate,
+         onOpenChange: setIsOpen,
+         middleware: [
+            offset(0),
+            flip({ fallbackAxisSideDirection: 'end' }),
+            shift(),
+         ],
+      });
+      const click = useClick(context, { enabled: !isDisabled });
+      const dismiss = useDismiss(context);
+      const role = useRole(context);
+      const { getReferenceProps, getFloatingProps } = useInteractions([
+         click,
+         dismiss,
+         role,
+      ]);
+      return (
+         <Fragment>
+            <StyledControl
+               {...getReferenceProps()}
+               ref={refs.setReference}
+               onFocus={onFocus}
+               data-disabled={isDisabled}
+               data-error={isError}
+            >
+               <div
+                  className='indicator'
+                  style={{ backgroundColor: value?.hex }}
+               />
+               <div className='value'>{value?.hex}</div>
+            </StyledControl>
+            {isOpen && (
+               <FloatingPortal id='floating-ui-portal'>
+                  <FloatingFocusManager
+                     context={context}
+                     initialFocus={false}
+                     modal={false}
                   >
-                     {color?.hex}
-                  </div>
-               </StyledControl>
-               {isOpen && (
-                  <FloatingPortal id='floating-ui-portal'>
-                     <FloatingFocusManager
-                        context={context}
-                        initialFocus={false}
-                        modal={false}
+                     <StyledColor
+                        ref={refs.setFloating}
+                        style={floatingStyles}
+                        {...getFloatingProps()}
                      >
-                        <StyledColor
-                           ref={refs.setFloating}
-                           style={floatingStyles}
-                           {...getFloatingProps()}
-                        >
-                           <div className='color-palette'>
-                              <ColorPicker
-                                 color={color}
-                                 hideInput={['hsv']}
-                                 onChange={value => {
-                                    onChange(value?.hex);
-                                    setColor(value);
-                                 }}
-                              />
-                           </div>
-                        </StyledColor>
-                     </FloatingFocusManager>
-                  </FloatingPortal>
-               )}
-            </Fragment>
-         );
-      },
-      {}
-   )
+                        <div className='color-palette'>
+                           <ColorPicker
+                              color={value}
+                              hideInput={['hsv']}
+                              onChange={onChange}
+                           />
+                        </div>
+                     </StyledColor>
+                  </FloatingFocusManager>
+               </FloatingPortal>
+            )}
+         </Fragment>
+      );
+   }
 );
 ColorInput.propTypes = {
    isDisabled: bool,

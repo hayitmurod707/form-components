@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import CreatableSelect from './components/CreatableSelect';
 import CreditCardInput from './components/CreditCardInput';
 // import Editor from './components/Editor';
+import { useColor } from 'react-color-palette';
 import AutoComplete from './components/AutoComplete';
 import Calendar from './components/Calendar/Calendar';
 import ColorInput from './components/ColorInput';
@@ -121,8 +122,7 @@ const App = () => {
    const [value, setValue] = useState([]);
    const [currency, setCurrency] = useState('');
    const [inn, setINN] = useState('');
-   const [color, setColor] = useState('');
-   console.log(color);
+   const [color, setColor] = useColor('#000000');
    return (
       <Fragment>
          <StyledHeader>
