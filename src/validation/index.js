@@ -1,11 +1,13 @@
 import zod, { object } from 'zod';
 import ArraySchema from './array';
+import Locale from './locale';
 import MixedSchema from './mixed';
 import NumberSchema from './number';
 import ObjectSchema from './object';
 import StringSchema from './string';
-class Validation {
+class Validation extends Locale {
    constructor() {
+      super();
       this.array = new ArraySchema();
       this.mixed = new MixedSchema();
       this.number = new NumberSchema();
