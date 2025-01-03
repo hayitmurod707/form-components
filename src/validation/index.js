@@ -30,10 +30,10 @@ class Validation {
          total[key] = message;
          return total;
       };
-      const returnErrors = keys.reduce(reduce, {});
-      return returnErrors;
+      const newErrors = keys.reduce(reduce, {});
+      return newErrors;
    }
-   validate({ schema, data, onSuccess = () => {}, onError = () => {} }) {
+   validate({ data, onError = () => {}, onSuccess = () => {}, schema }) {
       const result = object(schema).safeParse(data);
       if (result?.success) {
          onSuccess(result?.data);

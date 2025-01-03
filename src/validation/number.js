@@ -15,8 +15,7 @@ class NumberSchema extends Locale {
       return validation;
    }
    int(isRequired = true) {
-      const { int_error } = this;
-      const required = this.#init().int(int_error);
+      const required = this.#init().int(this.number_errors.int);
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
@@ -55,26 +54,22 @@ class NumberSchema extends Locale {
       return validation;
    }
    positive(isRequired = true) {
-      const { positive_error } = this;
-      const required = this.#init().positive(positive_error);
+      const required = this.#init().positive(this.number_errors.positive);
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
    nonpositive(isRequired = true) {
-      const { nonpositive_error } = this;
-      const required = this.#init().nonpositive(nonpositive_error);
+      const required = this.#init().nonpositive(this.number_errors.nonpositive);
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
    negative(isRequired = true) {
-      const { negative_error } = this;
-      const required = this.#init().negative(negative_error);
+      const required = this.#init().negative(this.number_errors.negative);
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
    nonnegative(isRequired = true) {
-      const { nonnegative_error } = this;
-      const required = this.#init().nonnegative(nonnegative_error);
+      const required = this.#init().nonnegative(this.number_errors.nonnegative);
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
@@ -84,14 +79,12 @@ class NumberSchema extends Locale {
       return validation;
    }
    finite(isRequired = true) {
-      const { finite_error } = this;
-      const required = this.#init().finite(finite_error);
+      const required = this.#init().finite(this.number_errors.finite);
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
    safe(isRequired = true) {
-      const { safe_error } = this;
-      const required = this.#init().safe(safe_error);
+      const required = this.#init().safe(this.number_errors.safe);
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
