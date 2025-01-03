@@ -1,15 +1,14 @@
 import { boolean, nan, nullable, enum as zodEnum } from 'zod';
-const required_error = 'required_error';
-const invalid_type_error = 'invalid_type_error';
-class MixedSchema {
+import Locale from './locale';
+class MixedSchema extends Locale {
    enum(types) {
       const validation = zodEnum(types);
       return validation;
    }
    boolean(isRequired = true) {
+      const { required_error, invalid_type_error } = this;
       const required = boolean({ required_error, invalid_type_error });
-      const optional = boolean({ invalid_type_error }).optional();
-      const validation = isRequired ? required : optional;
+      const validation = isRequired ? required : required.optional();
       return validation;
    }
    nullable(type) {
@@ -17,9 +16,9 @@ class MixedSchema {
       return validation;
    }
    nan(isRequired = true) {
+      const { required_error, invalid_type_error } = this;
       const required = nan({ required_error, invalid_type_error });
-      const optional = nan({ invalid_type_error }).optional();
-      const validation = isRequired ? required : optional;
+      const validation = isRequired ? required : required.optional();
       return validation;
    }
 }

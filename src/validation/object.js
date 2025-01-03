@@ -1,8 +1,8 @@
 import { literal, number } from 'zod';
-const required_error = 'required_error';
-const invalid_type_error = 'invalid_type_error';
-class ObjectSchema {
+import Locale from './locale';
+class ObjectSchema extends Locale {
    #init() {
+      const { required_error, invalid_type_error } = this;
       const value = number({
          required_error,
          invalid_type_error,
@@ -14,7 +14,7 @@ class ObjectSchema {
       return optional;
    }
    text(isRequired = true) {
-      const text = this.#init().min(1, { message: required_error });
+      const text = this.#init().min(1, { message: this.required_error });
       const validation = isRequired ? text : this.#optional(text);
       return validation;
    }

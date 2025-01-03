@@ -1,18 +1,14 @@
 import { array } from 'zod';
-const required_error = 'required_error';
-const invalid_type_error = 'invalid_type_error';
-class ArraySchema {
+import Locale from './locale';
+class ArraySchema extends Locale {
    #init(type) {
-      const value = array(type, { message: invalid_type_error });
+      const value = array(type, { message: this.invalid_type_error });
       return value;
    }
-   #nonempty(value) {
-      const optional = value.min(1, { message: required_error });
-      return optional;
-   }
-   list(type, nonempty = true) {
-      const list = this.#init(type);
-      const validation = nonempty ? this.#nonempty(list) : list;
+   list(type, isRequired = true) {
+      const optional = this.#init(type);
+      const required = optional.min(1, { message: this.required_error });
+      const validation = isRequired ? required : optional;
       return validation;
    }
    min(min) {

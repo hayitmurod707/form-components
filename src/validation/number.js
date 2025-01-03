@@ -1,8 +1,8 @@
 import { number } from 'zod';
-const required_error = 'required_error';
-const invalid_type_error = 'invalid_type_error';
-class NumberSchema {
+import Locale from './locale';
+class NumberSchema extends Locale {
    #init() {
+      const { required_error, invalid_type_error } = this;
       const value = number({ required_error, invalid_type_error });
       return value;
    }
@@ -15,7 +15,8 @@ class NumberSchema {
       return validation;
    }
    int(isRequired = true) {
-      const required = this.#init().int('invalid_type_error');
+      const { int_error } = this;
+      const required = this.#init().int(int_error);
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
@@ -54,22 +55,26 @@ class NumberSchema {
       return validation;
    }
    positive(isRequired = true) {
-      const required = this.#init().positive('invalid_type_error');
+      const { positive_error } = this;
+      const required = this.#init().positive(positive_error);
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
    nonpositive(isRequired = true) {
-      const required = this.#init().nonpositive('invalid_type_error');
+      const { nonpositive_error } = this;
+      const required = this.#init().nonpositive(nonpositive_error);
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
    negative(isRequired = true) {
-      const required = this.#init().negative('invalid_type_error');
+      const { negative_error } = this;
+      const required = this.#init().negative(negative_error);
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
    nonnegative(isRequired = true) {
-      const required = this.#init().nonnegative('invalid_type_error');
+      const { nonnegative_error } = this;
+      const required = this.#init().nonnegative(nonnegative_error);
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
@@ -79,12 +84,14 @@ class NumberSchema {
       return validation;
    }
    finite(isRequired = true) {
-      const required = this.#init().finite('invalid_type_error');
+      const { finite_error } = this;
+      const required = this.#init().finite(finite_error);
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
    safe(isRequired = true) {
-      const required = this.#init().safe('invalid_type_error');
+      const { safe_error } = this;
+      const required = this.#init().safe(safe_error);
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
