@@ -16,6 +16,7 @@ import PINFLInput from './components/PINFLInput';
 import PassportInput from './components/PassportInput';
 import PasswordInput from './components/PasswordInput';
 import PhoneInput from './components/PhoneInput';
+import PhonesInput from './components/PhonesInput';
 import {
    RCSlider,
    ReactInputRange,
@@ -124,6 +125,9 @@ const App = () => {
    const [currency, setCurrency] = useState('');
    const [inn, setINN] = useState('');
    const [color, setColor] = useColor('#000000');
+   const [phoneInput, onChangePhone] = useState('998933030207');
+   const [phones, onChangePhones] = useState(['998933030207']);
+   console.log(phoneInput, phones);
    return (
       <Fragment>
          <StyledHeader>
@@ -142,6 +146,15 @@ const App = () => {
          <Validation />
          <StyledInputContent>
             <h2 className='sub-title'>Inputs</h2>
+            <div className='content'>
+               <label>Phones input</label>
+               <PhonesInput
+                  onChangePhone={onChangePhone}
+                  onChangePhones={onChangePhones}
+                  phone={phoneInput}
+                  phones={phones}
+               />
+            </div>
             <div className='content'>
                <label>Text input</label>
                <TextInput onChange={setText} value={text} />
