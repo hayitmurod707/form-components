@@ -1,6 +1,10 @@
 import { boolean, nan, nullable, enum as zodEnum } from 'zod';
 import Locale from './locale';
 class MixedSchema extends Locale {
+   constructor(props) {
+      super(props);
+      this.min_error = {};
+   }
    enum(types) {
       const validation = zodEnum(types);
       return validation;

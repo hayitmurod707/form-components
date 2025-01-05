@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import TextInput from '../components/TextInput';
-import { array, validate as check, number } from '../validation';
+import v from '../validation';
 const StyledValidation = styled.form`
    display: flex;
    align-items: center;
@@ -28,8 +28,8 @@ const Validation = () => {
    const validate = e => {
       e.preventDefault();
       const schema = {
-         required: array.list(number.float()),
-         optional: array.list(number.float(), false),
+         required: v.array.list(v.number.float()),
+         optional: v.array.list(v.number.float(), false),
       };
       const data = {
          required: [1],
@@ -41,7 +41,7 @@ const Validation = () => {
          onSuccess: () => console.log('success'),
          schema,
       };
-      check(options);
+      v.validate(options);
    };
    return (
       <StyledValidation onSubmit={validate}>

@@ -1,6 +1,10 @@
 import { array } from 'zod';
 import Locale from './locale';
 class ArraySchema extends Locale {
+   constructor(props) {
+      super(props);
+      this.min_error = {};
+   }
    #init(type) {
       const value = array(type, { message: this.invalid_type_error });
       return value;

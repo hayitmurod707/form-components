@@ -1,6 +1,10 @@
 import { number } from 'zod';
 import Locale from './locale';
 class NumberSchema extends Locale {
+   constructor(props) {
+      super(props);
+      this.min_error = {};
+   }
    #init() {
       const { required_error, invalid_type_error } = this;
       const value = number({ required_error, invalid_type_error });
@@ -15,7 +19,10 @@ class NumberSchema extends Locale {
       return validation;
    }
    int(isRequired = true) {
-      const required = this.#init().int(this.number_errors.int);
+      const required = this.#init().int({
+         ru: 'Это поле принимает только целочисленное значение',
+         uz: 'Ushbu maydon faqat butun qiymatni qabul qiladi',
+      });
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
@@ -54,22 +61,34 @@ class NumberSchema extends Locale {
       return validation;
    }
    positive(isRequired = true) {
-      const required = this.#init().positive(this.number_errors.positive);
+      const required = this.#init().positive({
+         uz: 'Ushbu maydon faqat noldan katta qiymatni qabul qiladi',
+         ru: 'Это поле принимает только значение больше нуля',
+      });
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
    nonpositive(isRequired = true) {
-      const required = this.#init().nonpositive(this.number_errors.nonpositive);
+      const required = this.#init().nonpositive({
+         ru: 'Это поле принимает только значения ноль и меньше нуля',
+         uz: 'Ushbu maydon faqat nol va noldan kichik qiymatlarni qabul qiladi',
+      });
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
    negative(isRequired = true) {
-      const required = this.#init().negative(this.number_errors.negative);
+      const required = this.#init().negative({
+         ru: 'Это поле принимает только значение меньше нуля',
+         uz: 'Ushbu maydon faqat noldan kichik qiymatni qabul qiladi',
+      });
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
    nonnegative(isRequired = true) {
-      const required = this.#init().nonnegative(this.number_errors.nonnegative);
+      const required = this.#init().nonnegative({
+         ru: 'Это поле принимает только ноль и больше нуля.',
+         uz: 'Ushbu maydon faqat nol va noldan katta qiymatni qabul qiladi',
+      });
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
@@ -79,12 +98,18 @@ class NumberSchema extends Locale {
       return validation;
    }
    finite(isRequired = true) {
-      const required = this.#init().finite(this.number_errors.finite);
+      const required = this.#init().finite({
+         ru: 'Это поле не принимает отрицательную бесконечность или положительную бесконечность',
+         uz: 'Ushbu maydon manfiy cheksiz yoki musbat cheksiz qiymatni qabul qilmaydi',
+      });
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }
    safe(isRequired = true) {
-      const required = this.#init().safe(this.number_errors.safe);
+      const required = this.#init().safe({
+         uz: 'Ushbu maydon Number.MIN_SAFE_INTEGER va Number.MAX_SAFE_INTEGER orasidagi qiymatlarni qabul qiladi',
+         ru: 'Это поле принимает значения между Number.MIN_SAFE_INTEGER и Number.MAX_SAFE_INTEGER',
+      });
       const validation = isRequired ? required : this.#optional(required);
       return validation;
    }

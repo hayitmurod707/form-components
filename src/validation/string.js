@@ -1,8 +1,12 @@
 import { literal, string } from 'zod';
 import Locale from './locale';
 class StringSchema extends Locale {
+   constructor(props) {
+      super(props);
+      this.min_error = {};
+   }
    #init() {
-      const { required_error, invalid_type_error } = this;
+      const { invalid_type_error, required_error } = this;
       const value = string({
          required_error,
          invalid_type_error,
@@ -23,21 +27,36 @@ class StringSchema extends Locale {
    url(isRequired = true) {
       const url = this.#init()
          .describe('URL validation')
-         .url({ message: this.string.url });
+         .url({
+            message: {
+               ru: 'URL-адрес недействителен',
+               uz: 'URL manzili yaroqsiz',
+            },
+         });
       const validation = isRequired ? url : this.#optional(url);
       return validation;
    }
    email(isRequired = true) {
       const email = this.#init()
          .describe('Email validation')
-         .email({ message: this.string.email });
+         .email({
+            message: {
+               ru: 'Email недействителен',
+               uz: 'Elektron pochta manzili yaroqsiz',
+            },
+         });
       const validation = isRequired ? email : this.#optional(email);
       return validation;
    }
    color(isRequired = true) {
       const color = this.#init()
          .describe('Color validation')
-         .regex(/\d{6}/, { message: this.string.color });
+         .regex(/\d{6}/, {
+            message: {
+               ru: 'Цвет недействителен',
+               uz: 'Rang yaroqsiz',
+            },
+         });
       const validation = isRequired ? color : this.#optional(color);
       return validation;
    }
@@ -47,28 +66,45 @@ class StringSchema extends Locale {
          .describe(
             'Uzbekistan phone number validation get only numbers and phone number length must be 12. Example: 998123456789'
          )
-         .regex(/998\d{9}/, { message: this.string.phone });
+         .regex(/998\d{9}/, {
+            message: {
+               ru: 'Номер телефона недействителен',
+               uz: 'Telefon raqami yaroqsiz',
+            },
+         });
       const validation = isRequired ? phone : this.#optional(phone);
       return validation;
    }
    datetime(isRequired = true) {
       const datetime = this.#init()
          .describe('Datetime validation. Example: 2024-12-31T12:34:56')
-         .datetime({ message: this.string.datetime, local: true });
+         .datetime({
+            local: true,
+            message: {
+               ru: 'Дата и время недействительны',
+               uz: 'Sana va vaqt yaroqsiz',
+            },
+         });
       const validation = isRequired ? datetime : this.#optional(datetime);
       return validation;
    }
    date(isRequired = true) {
       const date = this.#init()
          .describe('Date validation. Example: 2024-12-31')
-         .date(this.string.date);
+         .date({
+            ru: 'Дата недействительна',
+            uz: 'Sana yaroqsiz',
+         });
       const validation = isRequired ? date : this.#optional(date);
       return validation;
    }
    time(isRequired = true) {
       const time = this.#init()
          .describe('Time validation. Example: 12:34:56')
-         .time(this.string.time);
+         .time({
+            ru: 'Время недействительно',
+            uz: 'Vaqt yaroqsiz',
+         });
       const validation = isRequired ? time : this.#optional(time);
       return validation;
    }
@@ -77,7 +113,12 @@ class StringSchema extends Locale {
          .describe(
             'Card number validation get only numbers and card number length must be 16. Example: 1234567812345678'
          )
-         .regex(/\d{16}/, { message: this.string.card_number });
+         .regex(/\d{16}/, {
+            message: {
+               ru: 'Номер карты недействителен',
+               uz: 'Plastik karta raqami yaroqsiz',
+            },
+         });
       const validation = isRequired ? cardNumber : this.#optional(cardNumber);
       return validation;
    }
@@ -86,7 +127,12 @@ class StringSchema extends Locale {
          .describe(
             'Uzbekistan Passport validation get only letters, numbers and Passport length must be 9. Example: AA1234567'
          )
-         .regex(/[A-Za-z]{2}\d{7}/, { message: this.string.passport });
+         .regex(/[A-Za-z]{2}\d{7}/, {
+            message: {
+               ru: 'Паспорт недействителен',
+               uz: 'Passport yaroqsiz',
+            },
+         });
       const validation = isRequired ? passport : this.#optional(passport);
       return validation;
    }
@@ -95,7 +141,12 @@ class StringSchema extends Locale {
          .describe(
             'Uzbekistan PINFL validation get only numbers and PINFL length must be 14. Example: 12345678901234'
          )
-         .regex(/\d{14}/, { message: this.string.pinfl });
+         .regex(/\d{14}/, {
+            message: {
+               ru: 'Пинфл недействителен',
+               uz: 'Pinfl yaroqsiz',
+            },
+         });
       const validation = isRequired ? pinfl : this.#optional(pinfl);
       return validation;
    }
@@ -104,7 +155,12 @@ class StringSchema extends Locale {
          .describe(
             'Uzbekistan INN validation get only numbers and INN length must be 9. Example: 123456789'
          )
-         .regex(/\d{9}/, { message: this.string.inn });
+         .regex(/\d{9}/, {
+            message: {
+               ru: 'СТИР недействительна',
+               uz: 'Inn yaroqsiz',
+            },
+         });
       const validation = isRequired ? inn : this.#optional(inn);
       return validation;
    }

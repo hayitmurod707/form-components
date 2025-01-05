@@ -1,6 +1,10 @@
 import { literal, number } from 'zod';
 import Locale from './locale';
 class ObjectSchema extends Locale {
+   constructor(props) {
+      super(props);
+      this.min_error = {};
+   }
    #init() {
       const { required_error, invalid_type_error } = this;
       const value = number({
