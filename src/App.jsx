@@ -4,7 +4,6 @@ import CreatableSelect from './components/CreatableSelect';
 import CreditCardInput from './components/CreditCardInput';
 // import Editor from './components/Editor';
 import { useColor } from 'react-color-palette';
-import Validation from './Validation/Validation';
 import AutoComplete from './components/AutoComplete';
 import Calendar from './components/Calendar/Calendar';
 import ColorInput from './components/ColorInput';
@@ -143,7 +142,6 @@ const App = () => {
                </a>
             </p>
          </StyledHeader>
-         <Validation />
          <StyledInputContent>
             <h2 className='sub-title'>Inputs</h2>
             <div className='content'>
