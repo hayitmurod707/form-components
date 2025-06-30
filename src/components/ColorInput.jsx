@@ -13,9 +13,34 @@ import {
 } from '@floating-ui/react';
 import { bool, func, string } from 'prop-types';
 import { Fragment, memo, useState } from 'react';
-import { ColorPicker } from 'react-color-palette';
-import 'react-color-palette/css';
+import { HexAlphaColorPicker } from 'react-colorful';
 import styled from 'styled-components';
+// export const hexToRgba = (hex = '') => {
+//    hex = hex.replace(/^#/, '');
+//    if (hex.length === 3 || hex.length === 4) {
+//       hex = hex
+//          .split('')
+//          .map(char => char + char)
+//          .join('');
+//    }
+//    const hasAlpha = hex.length === 8;
+//    const r = parseInt(hex.slice(0, 2), 16);
+//    const g = parseInt(hex.slice(2, 4), 16);
+//    const b = parseInt(hex.slice(4, 6), 16);
+//    const a = (hasAlpha ? parseInt(hex.slice(6, 8), 16) / 255 : 1).toFixed(3);
+//    const newValue = { r, g, b, a };
+//    return newValue;
+// };
+// export const rgbaToHex = ({ r, g, b, a = 1 }) => {
+//    const toHex = value => {
+//       const hex = Math.round(value).toString(16).padStart(2, '0');
+//       return hex;
+//    };
+//    const newAlpha = isNaN(a) ? 1 : a;
+//    const alpha = toHex(newAlpha * 255);
+//    const newValue = `#${toHex(r)}${toHex(g)}${toHex(b)}${alpha}`;
+//    return newValue;
+// };
 const StyledColor = styled.div`
    background-color: #ffffff;
    border-radius: 14px;
@@ -24,30 +49,30 @@ const StyledColor = styled.div`
       0 1px 20px 0 rgba(13, 46, 105, 0.07);
    & .color-palette {
       width: 300px;
-      & .rcp-root {
-         background-color: transparent;
-         & .rcp-body {
-            padding: 10px 0 0 0;
+      & .react-colorful {
+         width: 100%;
+         & .react-colorful__saturation {
+            border-bottom: none;
+            border-radius: 12px;
+            cursor: all-scroll;
+            margin: 0 0 12px 0;
          }
-         & .rcp-field-input {
-            background-color: transparent;
-            border-radius: 6px;
-            border: 1.5px solid #e1e1e1;
-            color: #000000;
-            font-size: 14px;
-            font-weight: 500;
-            outline: none;
-            text-transform: uppercase;
-            width: 100%;
-            &:focus {
-               border: 1.5px solid #3a79f3;
-            }
+         & .react-colorful__hue {
+            border-radius: 8px;
+            cursor: ew-resize;
+            height: 12px;
+            margin: 0 0 12px 0;
          }
-         & .rcp-field-label {
-            color: #949494;
-            font-size: 14px;
-            font-weight: 500;
-            margin: 2px 0 0 0;
+         & .react-colorful__alpha {
+            border-radius: 8px;
+            cursor: ew-resize;
+            height: 12px;
+         }
+         & .react-colorful__saturation-pointer,
+         & .react-colorful__hue-pointer,
+         & .react-colorful__alpha-pointer {
+            height: 20px;
+            width: 20px;
          }
       }
    }
@@ -162,11 +187,8 @@ const ColorInput = memo(
                data-disabled={isDisabled}
                data-error={isError}
             >
-               <div
-                  className='indicator'
-                  style={{ backgroundColor: value?.hex }}
-               />
-               <div className='value'>{value?.hex}</div>
+               <div className='indicator' style={{ backgroundColor: value }} />
+               <div className='value'>{value}</div>
             </StyledControl>
             {isOpen && (
                <FloatingPortal id='floating-ui-portal'>
@@ -176,15 +198,16 @@ const ColorInput = memo(
                      modal={false}
                   >
                      <StyledColor
+                        {...getFloatingProps()}
                         ref={refs.setFloating}
                         style={floatingStyles}
-                        {...getFloatingProps()}
                      >
                         <div className='color-palette'>
-                           <ColorPicker
+                           <HexAlphaColorPicker
                               color={value}
-                              hideInput={['hsv']}
-                              onChange={onChange}
+                              onChange={value => {
+                                 onChange(value);
+                              }}
                            />
                         </div>
                      </StyledColor>

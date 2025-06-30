@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import CreatableSelect from './components/CreatableSelect';
 import CreditCardInput from './components/CreditCardInput';
 // import Editor from './components/Editor';
-import { useColor } from 'react-color-palette';
 import AutoComplete from './components/AutoComplete';
 import Calendar from './components/Calendar/Calendar';
+import ColorInputUniversal from './components/ColorField';
 import ColorInput from './components/ColorInput';
 import DateInput from './components/DateInput';
 import INNInput from './components/INNInput';
@@ -123,10 +123,10 @@ const App = () => {
    const [value, setValue] = useState([]);
    const [currency, setCurrency] = useState('');
    const [inn, setINN] = useState('');
-   const [color, setColor] = useColor('#000000');
+   const [color, setColor] = useState('#000000');
    const [phoneInput, onChangePhone] = useState('998933030207');
    const [phones, onChangePhones] = useState(['998933030207']);
-   console.log(phoneInput, phones);
+   const [some, setSome] = useState('');
    return (
       <Fragment>
          <StyledHeader>
@@ -142,6 +142,7 @@ const App = () => {
                </a>
             </p>
          </StyledHeader>
+         <ColorInputUniversal value={some} onChange={setSome} />
          <StyledInputContent>
             <h2 className='sub-title'>Inputs</h2>
             <div className='content'>

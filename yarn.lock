@@ -1112,6 +1112,13 @@
   resolved "https://registry.yarnpkg.com/@babel/regjsgen/-/regjsgen-0.8.0.tgz#f0ba69b075e1f05fb2825b7fad991e7adbb18310"
   integrity sha512-x/rqGMdzj+fWZvCOYForTghzbtqPDZ5gPwaoNGHdgDfF2QA/XZbCBp4Moo5scrkAMPhB7z26XM/AaHuIJdgauA==
 
+"@babel/runtime-corejs3@^7.24.4":
+  version "7.27.6"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.27.6.tgz#97644153808a62898e7c05f3361501417db3c48b"
+  integrity sha512-vDVrlmRAY8z9Ul/HxT+8ceAru95LQgkSKiXkSYZvqtbkPSfhZJgpRp45Cldbh1GJ1kxzQkI70AqyrTI58KpaWQ==
+  dependencies:
+    core-js-pure "^3.30.2"
+
 "@babel/runtime@^7.10.1", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.0", "@babel/runtime@^7.12.5", "@babel/runtime@^7.16.3", "@babel/runtime@^7.18.3", "@babel/runtime@^7.23.2", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
   version "7.24.1"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.24.1.tgz#431f9a794d173b53720e69a6464abc6f0e2a5c57"
@@ -3691,6 +3698,11 @@ core-js-pure@^3.23.3:
   resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.36.1.tgz#1461c89e76116528b54eba20a0aff30164087a94"
   integrity sha512-NXCvHvSVYSrewP0L5OhltzXeWFJLo2AL2TYnj6iLV3Bw8mM62wAQMNgUCRI6EBu6hVVpbCxmOPlxh1Ikw2PfUA==
 
+core-js-pure@^3.30.2:
+  version "3.43.0"
+  resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.43.0.tgz#4df9c949c7abde839a8398d16a827a76856b1f0c"
+  integrity sha512-i/AgxU2+A+BbJdMxh3v7/vxi2SbFqxiFmg6VsDwYB4jkucrd1BZNA9a9gphC0fYMG5IBSgQcbQnk865VCLe7xA==
+
 core-js@^3.19.2:
   version "3.36.1"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.36.1.tgz#c97a7160ebd00b2de19e62f4bbd3406ab720e578"
@@ -5601,6 +5613,13 @@ ignore@^5.2.0:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.3.1.tgz#5073e554cd42c5b33b394375f538b8593e34d4ef"
   integrity sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==
+
+imask@^7.6.1:
+  version "7.6.1"
+  resolved "https://registry.yarnpkg.com/imask/-/imask-7.6.1.tgz#04fa4693bf47a4a71bbf7325408e0d058a74dcad"
+  integrity sha512-sJlIFM7eathUEMChTh9Mrfw/IgiWgJqBKq2VNbyXvBZ7ev/IlO6/KQTKlV/Fm+viQMLrFLG/zCuudrLIwgK2dg==
+  dependencies:
+    "@babel/runtime-corejs3" "^7.24.4"
 
 immer@^9.0.7:
   version "9.0.21"
@@ -8326,10 +8345,10 @@ react-calendar@^4.8.0:
     prop-types "^15.6.0"
     warning "^4.0.0"
 
-react-color-palette@^7.3.0:
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/react-color-palette/-/react-color-palette-7.3.0.tgz#2229230b0513ea0bb303c74319f1840c6f0608e0"
-  integrity sha512-GCgz+XEcbyFkq5wVvrPiXp8mUnOI3oObtmOtsZBCpDXgzHcDCJdssW8lTtVXbUqodo6pOw6pwYQRlXpi/ekkzQ==
+react-colorful@^5.6.1:
+  version "5.6.1"
+  resolved "https://registry.yarnpkg.com/react-colorful/-/react-colorful-5.6.1.tgz#7dc2aed2d7c72fac89694e834d179e32f3da563b"
+  integrity sha512-1exovf0uGTGyq5mXQT0zgQ80uvj2PCwvF8zY1RN9/vbJVSjSo3fsB/4L3ObbF7u70NduSiK4xu4Y6q1MHoUGEw==
 
 react-contexify@^6.0.0:
   version "6.0.0"
@@ -8391,6 +8410,14 @@ react-error-overlay@^6.0.11:
   version "6.0.11"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.11.tgz#92835de5841c5cf08ba00ddd2d677b6d17ff9adb"
   integrity sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==
+
+react-imask@^7.6.1:
+  version "7.6.1"
+  resolved "https://registry.yarnpkg.com/react-imask/-/react-imask-7.6.1.tgz#40dbb03f0c9b2652a16450ff29a53581b5ae773d"
+  integrity sha512-vLNfzcCz62Yzx/GRGh5tiCph9Gbh2cZu+Tz8OiO5it2eNuuhpA0DWhhSlOtVtSJ80+Bx+vFK5De8eQ9AmbkXzA==
+  dependencies:
+    imask "^7.6.1"
+    prop-types "^15.8.1"
 
 react-input-mask@^2.0.4:
   version "2.0.4"
