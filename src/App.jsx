@@ -5,7 +5,6 @@ import CreditCardInput from './components/CreditCardInput';
 // import Editor from './components/Editor';
 import AutoComplete from './components/AutoComplete';
 import Calendar from './components/Calendar/Calendar';
-import ColorInputUniversal from './components/ColorField';
 import ColorInput from './components/ColorInput';
 import DateInput from './components/DateInput';
 import INNInput from './components/INNInput';
@@ -123,10 +122,9 @@ const App = () => {
    const [value, setValue] = useState([]);
    const [currency, setCurrency] = useState('');
    const [inn, setINN] = useState('');
-   const [color, setColor] = useState('#000000');
+   const [color, setColor] = useState('');
    const [phoneInput, onChangePhone] = useState('998933030207');
    const [phones, onChangePhones] = useState(['998933030207']);
-   const [some, setSome] = useState('');
    return (
       <Fragment>
          <StyledHeader>
@@ -142,9 +140,17 @@ const App = () => {
                </a>
             </p>
          </StyledHeader>
-         <ColorInputUniversal value={some} onChange={setSome} />
          <StyledInputContent>
             <h2 className='sub-title'>Inputs</h2>
+            <div className='content'>
+               <label>Color input</label>
+               <ColorInput
+                  value={color}
+                  // format='hex'
+                  // isDisabled={true}
+                  onChange={setColor}
+               />
+            </div>
             <div className='content'>
                <label>Phones input</label>
                <PhonesInput
@@ -195,10 +201,7 @@ const App = () => {
                <label>Date input</label>
                <DateInput value={date} onChange={setDate} />
             </div>
-            <div className='content'>
-               <label>Color input</label>
-               <ColorInput value={color} onChange={setColor} />
-            </div>
+
             <div className='content'>
                <label>Time input</label>
                <TimeInput onChange={setTime} value={time} />
